@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Pekla Tour</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tour_favorite">Destinasi Paling Sering Dikunjungi</string>
+    <string name="maaf_data_tour_masih_kosong">Maaf Untuk Saat Ini Kami Belum Ada Membuka Tour Ini</string>
+    <string name="pilih_tour_mu">Pilih Tour Mu</string>
+    <string name="awal">Awal</string>
+    <string name="pesanan">Pesanan</string>
+    <string name="akun_saya">Akun Saya</string>
+    <string name="masuk">MASUK</string>
+    <string name="daftar">DAFTAR</string>
+    <string name="email">Email</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="password">Password</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="daftar_sekarang">DAFTAR SEKARANG</string>
+    <string name="masuk_sekarang">Masuk Sekarang</string>
+    <string name="durasi_tour">Durasi Tour</string>
+    <string name="tujuan_tour">Tujuan Tour</string>
+    <string name="tanggal_berangkat">Tanggal Berangkat</string>
+    <string name="penumpang">Penumpang</string>
+    <string name="biaya_tour">Biaya Tour</string>
+    <string name="termasuk_dalam_tour">Termasuk Dalam Tour</string>
+    <string name="tidak_termasuk_dalam_tour">Tidak Termasuk Dalam Tour</string>
+    <string name="pesan">PESAN</string>
+    <string name="rute_perjalanan">Rute Perjalanan</string>
+    <string name="tambahkan_banyak_penumpang">Tambahkan Banyak Penumpang</string>
+    <string name="batal">Batal</string>
+    <string name="pilih">Pilih</string>
+    <string name="pilih_tanggal_keberangkatan">Pilih Tanggal Keberangkatan</string>
+    <string name="pilih_banyak_penumpang">Pilih Banyak Penumpang</string>
+</resources>
