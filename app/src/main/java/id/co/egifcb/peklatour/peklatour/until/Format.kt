@@ -13,7 +13,7 @@ fun String.formatHtml(): String? {
     }
 }
 
-fun String.formatDate(fromDate: String = "dd/MM/yyyy", toDateFormat: String = "EEEE, dd MMMM yyyy"): String? {
+fun String.formatDate(fromDate: String = "dd/MM//yyyy", toDateFormat: String = "EEEE, dd MMMM yyyy"): String? {
     val date = SimpleDateFormat(fromDate, Locale.getDefault())
     val dateFrom = date.parse(this)
 

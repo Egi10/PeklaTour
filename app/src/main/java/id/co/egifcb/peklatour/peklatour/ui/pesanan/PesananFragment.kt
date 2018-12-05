@@ -2,18 +2,25 @@ package id.co.egifcb.peklatour.peklatour.ui.pesanan
 
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.adapter.AdapterPesanan
 import id.co.egifcb.peklatour.peklatour.base.BaseFragment
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
+import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
 import kotlinx.android.synthetic.main.fragment_pesanan.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
 class PesananFragment : BaseFragment(), PesananView {
     private lateinit var pesananPresenter: PesananPresenter
     private lateinit var adapterPesanan: AdapterPesanan
     private var listPesanan: MutableList<DaftarpesananItem> = mutableListOf()
+    private lateinit var preferencesUser: PreferencesUser
+    private lateinit var llEmpty: LinearLayout
+    private lateinit var textMesage: TextView
 
     override fun contentView(): Int {
         return R.layout.fragment_pesanan
@@ -21,6 +28,10 @@ class PesananFragment : BaseFragment(), PesananView {
 
     override fun onCreated(view: View) {
         pesananPresenter = PesananPresenter(this)
+
+        preferencesUser = PreferencesUser(requireContext())
+        llEmpty = view.find(R.id.ll_empty)
+        textMesage = view.find(R.id.text_message)
 
         swipeRefresh.post {
             loadData()
@@ -32,7 +43,15 @@ class PesananFragment : BaseFragment(), PesananView {
     }
 
     private fun loadData() {
-        pesananPresenter.getPesanan("0")
+        val user = preferencesUser.getUserDetail()
+        val id = user[preferencesUser.NO]
+        id?.let {
+            if (it == "") {
+                pesananPresenter.getPesanan("0")
+            } else {
+                pesananPresenter.getPesanan(it)
+            }
+        }
         adapterPesanan = AdapterPesanan(requireContext(), listPesanan) {
 
         }
@@ -49,7 +68,8 @@ class PesananFragment : BaseFragment(), PesananView {
     }
 
     override fun onEmpty() {
-
+        llEmpty.visibility = View.VISIBLE
+        textMesage.text = getString(R.string.message_pemesanan)
     }
 
     override fun showLoading() {

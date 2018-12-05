@@ -136,7 +136,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
                     date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                     val datee = date.time
-                    val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val simpleDateFormat = SimpleDateFormat("dd/MM//yyyy", Locale.getDefault())
                     val dateString = simpleDateFormat.format(datee)
 
                     tv_tanggal_berangkat.text = dateString

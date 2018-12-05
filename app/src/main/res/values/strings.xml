@@ -34,4 +34,8 @@
     <string name="pilih">Pilih</string>
     <string name="pilih_tanggal_keberangkatan">Pilih Tanggal Keberangkatan</string>
     <string name="pilih_banyak_penumpang">Pilih Banyak Penumpang</string>
+    <string name="message_login">Anda melakukan pemesanan Anda harus melakukan Masuk terlebih dahulu. Jika Anda belum mempunyai Akun silahkan Daftar terlebih dahulu</string>
+    <string name="nama">Nama</string>
+    <string name="keluar">Keluar</string>
+    <string name="message_pemesanan">Anda Belum Ada Melakukan Pemesanan</string>
 </resources>

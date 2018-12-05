@@ -6,8 +6,10 @@ import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.LoginItem
 import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
+import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import id.co.egifcb.peklatour.peklatour.until.DialogLoading
 import kotlinx.android.synthetic.main.activity_masuk.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class MasukActivity : BaseActivity(), MasukView, View.OnClickListener {
@@ -41,7 +43,8 @@ class MasukActivity : BaseActivity(), MasukView, View.OnClickListener {
         list?.let {
             preferencesUser.createLogin(it.no.toString(), it.email, it.nama)
         }
-        toast(list?.email.toString())
+        startActivity<MainActivity>()
+        finish()
     }
 
     override fun showLoading() {

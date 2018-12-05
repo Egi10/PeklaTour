@@ -62,5 +62,8 @@
             android:id="@+id/btn_daftar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/daftar_sekarang"/>
+            android:text="@string/daftar_sekarang"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_primary"/>
 </LinearLayout>

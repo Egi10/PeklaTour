@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/ll_login"
+              android:layout_margin="20dp"
+              android:orientation="vertical">
+
+    <TextView
+            style="@style/TextViewTitle"
+            android:text="@string/nama"/>
+    <TextView
+            style="@style/TextViewSubTitle"
+            android:id="@+id/tv_nama"/>
+
+    <TextView
+            style="@style/TextViewTitle"
+            android:text="@string/email"/>
+    <TextView
+            style="@style/TextViewSubTitle"
+            android:id="@+id/tv_email"/>
+
+    <TextView
+            style="@style/TextViewTitle"
+            android:text="@string/keluar"
+            android:id="@+id/tv_keluar"/>
+
+</LinearLayout>
