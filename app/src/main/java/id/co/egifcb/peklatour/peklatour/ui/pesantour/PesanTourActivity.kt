@@ -30,6 +30,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
     private lateinit var pesanTourPresenter: PesanTourPresenter
     private lateinit var items: DaftartourItem
     private lateinit var alertDialog: AlertDialog
+    private lateinit var biayaTour: String
 
     override fun contentView(): Int {
         return R.layout.activity_pesan_tour
@@ -41,7 +42,8 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 
         tv_tujuan_tour.text = items.namaTempat
         tv_durasi_tour.text = items.durasiTour
-        tv_biaya_tour.text = items.harga?.formatRupiah()
+        biayaTour = items.harga.toString()
+        tv_biaya_tour.text = biayaTour.formatRupiah()
         tv_rute_perjalanan.text = items.rutePerjalanan?.formatHtml()
         tv_termasuk_dalam_tour.text = items.include?.formatHtml()
         tv_tidak_termasuk_dalam_tour.text = items.exclute?.formatHtml()
@@ -180,7 +182,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 
                         else -> {
                             pesanTourPresenter.pesan(items.no, tv_tanggal_berangkat.text.toString(), tv_penumpang.text.toString(), id,
-                                tv_tujuan_tour.text.toString(), tv_durasi_tour.text.toString(), tv_biaya_tour.text.toString())
+                                tv_tujuan_tour.text.toString(), tv_durasi_tour.text.toString(), biayaTour)
                         }
                     }
                 }
