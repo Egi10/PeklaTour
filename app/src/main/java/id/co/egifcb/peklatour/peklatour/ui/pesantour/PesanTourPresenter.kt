@@ -7,11 +7,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PesanTourPresenter(private val view: PesanTourView) {
-    fun pesan(idDaftarTour: Int?, tanggalBerangkat: String?, jumlahPenumpang: String, idPemesan: String?) {
+    fun pesan(idDaftarTour: Int?, tanggalBerangkat: String?, jumlahPenumpang: String, idPemesan: String?, tujuanTour: String?,
+              durasiTour: String?, biayaTour: String?) {
         view.showLoading()
 
         val config = ApiConfig.config()
-        val call = config.pesan("simpanpesan", idDaftarTour, tanggalBerangkat, jumlahPenumpang, idPemesan)
+        val call = config.pesan("simpanpesan", idDaftarTour, tanggalBerangkat, jumlahPenumpang, idPemesan, tujuanTour,
+            durasiTour, biayaTour)
         call.enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 view.onError(t.message)

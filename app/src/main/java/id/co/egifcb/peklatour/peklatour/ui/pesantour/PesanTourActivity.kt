@@ -18,6 +18,7 @@ import id.co.egifcb.peklatour.peklatour.ui.daftartour.DaftarTourActivity
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import id.co.egifcb.peklatour.peklatour.until.DialogLoading
 import id.co.egifcb.peklatour.peklatour.until.formatHtml
+import id.co.egifcb.peklatour.peklatour.until.formatRupiah
 import kotlinx.android.synthetic.main.activity_pesan_tour.*
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
@@ -40,7 +41,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 
         tv_tujuan_tour.text = items.namaTempat
         tv_durasi_tour.text = items.durasiTour
-        tv_biaya_tour.text = items.harga
+        tv_biaya_tour.text = items.harga?.formatRupiah()
         tv_rute_perjalanan.text = items.rutePerjalanan?.formatHtml()
         tv_termasuk_dalam_tour.text = items.include?.formatHtml()
         tv_tidak_termasuk_dalam_tour.text = items.exclute?.formatHtml()
@@ -165,7 +166,23 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
                     val user = preferencesUser.getUserDetail()
                     val id = user[preferencesUser.NO]
 
-                    pesanTourPresenter.pesan(items.no, tv_tanggal_berangkat.text.toString(), tv_penumpang.text.toString(), id)
+                    val tanggal = tv_tanggal_berangkat.text.toString()
+                    val penumpang = tv_penumpang.text.toString()
+
+                    when {
+                        tanggal == "Pilih Tanggal Keberangkatan" -> {
+                            toast("Tanggal Mohon Diisi")
+                        }
+
+                        penumpang == "Pilih Banyak Penumpang" -> {
+                            toast("Penumpang Tolong Diisi")
+                        }
+
+                        else -> {
+                            pesanTourPresenter.pesan(items.no, tv_tanggal_berangkat.text.toString(), tv_penumpang.text.toString(), id,
+                                tv_tujuan_tour.text.toString(), tv_durasi_tour.text.toString(), tv_biaya_tour.text.toString())
+                        }
+                    }
                 }
             }
         }

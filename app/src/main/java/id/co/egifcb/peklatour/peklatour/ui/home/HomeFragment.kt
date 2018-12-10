@@ -1,9 +1,11 @@
 package id.co.egifcb.peklatour.peklatour.ui.home
 
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.smarteist.autoimageslider.SliderLayout
 import com.smarteist.autoimageslider.SliderView
 
@@ -16,6 +18,7 @@ import id.co.egifcb.peklatour.peklatour.model.JenisTourItem
 import id.co.egifcb.peklatour.peklatour.model.PromotourItem
 import id.co.egifcb.peklatour.peklatour.ui.daftartour.DaftarTourActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
@@ -25,6 +28,10 @@ class HomeFragment : BaseFragment(), HomeView {
     private var listJenisTourFavorite: MutableList<DestinasifavoriteItem> = mutableListOf()
     private lateinit var adapterJenisTour: AdapterJenisTour
     private lateinit var adapterTourFavorite: AdapterTourFavorite
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var sliderLayout: SliderLayout
+    private lateinit var pilihTour: TextView
+    private lateinit var tourFavorite: TextView
 
     override fun contentView(): Int {
         return R.layout.fragment_home
@@ -32,6 +39,12 @@ class HomeFragment : BaseFragment(), HomeView {
 
     override fun onCreated(view: View) {
         homePresenter = HomePresenter(this)
+
+        swipeRefreshLayout = view.find(R.id.swipeRefresh)
+        sliderLayout = view.find(R.id.imageSlider)
+        pilihTour = view.find(R.id.tv_piloih_tour)
+        tourFavorite = view.find(R.id.tv_tour_favorite)
+
 
         swipeRefresh.post {
             loadData()
@@ -77,8 +90,8 @@ class HomeFragment : BaseFragment(), HomeView {
     }
 
     override fun onSuccessPromo(list: List<PromotourItem>?) {
-        imageSlider.setIndicatorAnimation(SliderLayout.Animations.SCALE_DOWN)
-        imageSlider.scrollTimeInSec = 2
+        sliderLayout.setIndicatorAnimation(SliderLayout.Animations.SCALE_DOWN)
+        sliderLayout.scrollTimeInSec = 2
 
         list?.let {
             for (i in it.indices) {
@@ -88,7 +101,7 @@ class HomeFragment : BaseFragment(), HomeView {
 
                 sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 
-                imageSlider.addSliderView(sliderView)
+                sliderLayout.addSliderView(sliderView)
             }
         }
     }
@@ -98,15 +111,15 @@ class HomeFragment : BaseFragment(), HomeView {
     }
 
     override fun showLoading() {
-        swipeRefresh.isRefreshing = true
-        tv_piloih_tour.visibility = View.GONE
-        tv_tour_favorite.visibility = View.GONE
+        swipeRefreshLayout.isRefreshing = true
+        pilihTour.visibility = View.GONE
+        tourFavorite.visibility = View.GONE
     }
 
     override fun hideLoading() {
-        swipeRefresh.isRefreshing = false
-        tv_piloih_tour.visibility = View.VISIBLE
-        tv_tour_favorite.visibility = View.VISIBLE
+        swipeRefreshLayout.isRefreshing = false
+        pilihTour.visibility = View.VISIBLE
+        tourFavorite.visibility = View.VISIBLE
     }
 
     override fun onFailed(message: String?) {

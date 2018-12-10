@@ -44,14 +44,11 @@ class HomePresenter(private val view: HomeView) {
     }
 
     fun getJenisTourFavorite() {
-        view.showLoading()
-
         val config = ApiConfig.config()
         val call = config.getTour("destinasifavorite")
         call.enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 view.onError(t.message)
-                view.hideLoading()
             }
 
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
@@ -70,21 +67,17 @@ class HomePresenter(private val view: HomeView) {
                         view.onFailed(response.message())
                     }
                 }
-                view.hideLoading()
             }
 
         })
     }
 
     fun getJenisTourPromo() {
-        view.showLoading()
-
         val config = ApiConfig.config()
         val call = config.getTour("promotour")
         call.enqueue(object : Callback<ApiResponse> {
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                 view.onError(t.message)
-                view.hideLoading()
             }
 
             override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
@@ -103,7 +96,6 @@ class HomePresenter(private val view: HomeView) {
                         view.onFailed(response.message())
                     }
                 }
-                view.hideLoading()
             }
 
         })

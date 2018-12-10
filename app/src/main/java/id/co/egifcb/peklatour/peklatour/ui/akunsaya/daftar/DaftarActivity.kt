@@ -3,8 +3,10 @@ package id.co.egifcb.peklatour.peklatour.ui.akunsaya.daftar
 import android.view.View
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
+import id.co.egifcb.peklatour.peklatour.ui.akunsaya.masuk.MasukActivity
 import id.co.egifcb.peklatour.peklatour.until.DialogLoading
 import kotlinx.android.synthetic.main.activity_daftar.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class DaftarActivity : BaseActivity(), DaftarView, View.OnClickListener {
@@ -43,7 +45,8 @@ class DaftarActivity : BaseActivity(), DaftarView, View.OnClickListener {
     }
 
     override fun onSuccess(message: String?) {
-        toast(message.toString())
+        startActivity<MasukActivity>()
+        finish()
     }
 
     override fun showLoading() {

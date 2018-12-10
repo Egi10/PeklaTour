@@ -87,6 +87,7 @@ class DaftarTourActivity : BaseActivity(), DaftarTourView {
         when(item?.itemId) {
             android.R.id.home -> {
                 back()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

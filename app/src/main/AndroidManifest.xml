@@ -45,6 +45,11 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.daftartour.DaftarTourActivity"/>
         </activity>
+        <activity android:name=".ui.tikettour.TiketTourActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ui.main.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

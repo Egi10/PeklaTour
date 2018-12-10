@@ -34,8 +34,18 @@
     <string name="pilih">Pilih</string>
     <string name="pilih_tanggal_keberangkatan">Pilih Tanggal Keberangkatan</string>
     <string name="pilih_banyak_penumpang">Pilih Banyak Penumpang</string>
-    <string name="message_login">Anda melakukan pemesanan Anda harus melakukan Masuk terlebih dahulu. Jika Anda belum mempunyai Akun silahkan Daftar terlebih dahulu</string>
+    <string name="message_login">Anda melakukan pemesanan Anda harus melakukan Masuk terlebih dahulu. Jika Anda belum
+        mempunyai Akun silahkan Daftar terlebih dahulu
+    </string>
     <string name="nama">Nama</string>
     <string name="keluar">Keluar</string>
     <string name="message_pemesanan">Anda Belum Ada Melakukan Pemesanan</string>
+    <string name="no_pesanan">No. Pesanan %1$s</string>
+    <string name="rp">Rp %1$s</string>
+    <string name="nopesanan">No Pesanan\n%1$s</string>
+    <string name="biayatour">Biaya Tour\nRp %1$s</string>
+    <string name="jumlahpenumpang">Jumlah Penumpang\n%1$s</string>
+    <string name="durasitour">Durasi Tour\n%1$s</string>
+    <string name="testing">testing\nayo</string>
+    <string name="keluar_dari_akun_anda">Keluar dari akun anda</string>
 </resources>

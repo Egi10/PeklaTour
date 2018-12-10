@@ -31,7 +31,20 @@ class MainActivity : BaseActivity() {
     override fun onCreated() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        loadFragment(R.id.navigation_home)
+        val posisi = intent.getStringExtra("posisi")
+        when(posisi) {
+            null -> {
+                loadFragment(R.id.navigation_home)
+            }
+
+            "2" -> {
+                viewIsAtHome = true
+                navigation.selectedItemId = R.id.navigation_pesanan
+                loadFragment(R.id.navigation_pesanan)
+            }
+        }
+
+
     }
 
     private fun loadFragment(itemId: Int) {
@@ -53,6 +66,7 @@ class MainActivity : BaseActivity() {
         }
 
         val fragmentManager = supportFragmentManager
+        fragmentManager.executePendingTransactions()
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.addToBackStack(null)

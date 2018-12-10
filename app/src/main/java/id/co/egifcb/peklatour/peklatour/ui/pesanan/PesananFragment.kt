@@ -1,6 +1,8 @@
 package id.co.egifcb.peklatour.peklatour.ui.pesanan
 
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -10,9 +12,9 @@ import id.co.egifcb.peklatour.peklatour.adapter.AdapterPesanan
 import id.co.egifcb.peklatour.peklatour.base.BaseFragment
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
 import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
+import id.co.egifcb.peklatour.peklatour.ui.tikettour.TiketTourActivity
 import kotlinx.android.synthetic.main.fragment_pesanan.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class PesananFragment : BaseFragment(), PesananView {
     private lateinit var pesananPresenter: PesananPresenter
@@ -21,6 +23,8 @@ class PesananFragment : BaseFragment(), PesananView {
     private lateinit var preferencesUser: PreferencesUser
     private lateinit var llEmpty: LinearLayout
     private lateinit var textMesage: TextView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var recyclerView: RecyclerView
 
     override fun contentView(): Int {
         return R.layout.fragment_pesanan
@@ -32,6 +36,8 @@ class PesananFragment : BaseFragment(), PesananView {
         preferencesUser = PreferencesUser(requireContext())
         llEmpty = view.find(R.id.ll_empty)
         textMesage = view.find(R.id.text_message)
+        swipeRefreshLayout = view.find(R.id.swipeRefresh)
+        recyclerView = view.find(R.id.recyclerView)
 
         swipeRefresh.post {
             loadData()
@@ -53,7 +59,23 @@ class PesananFragment : BaseFragment(), PesananView {
             }
         }
         adapterPesanan = AdapterPesanan(requireContext(), listPesanan) {
+            when(it.statusPesanan) {
+                "Pengajuan" -> {
+                    requireContext().alert ("Mohon Menunggu, kami masih melakukan proses pesanan Anda") {
+                        yesButton { dialog ->
+                            dialog.dismiss()
+                        }
+                    }.show()
+                }
 
+                "Pengajuan Diterima" -> {
+                    requireContext().startActivity<TiketTourActivity>("items" to it)
+                }
+
+                else -> {
+
+                }
+            }
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapterPesanan
@@ -73,11 +95,11 @@ class PesananFragment : BaseFragment(), PesananView {
     }
 
     override fun showLoading() {
-        swipeRefresh.isRefreshing = true
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun hideLoading() {
-        swipeRefresh.isRefreshing = false
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onFailed(message: String?) {

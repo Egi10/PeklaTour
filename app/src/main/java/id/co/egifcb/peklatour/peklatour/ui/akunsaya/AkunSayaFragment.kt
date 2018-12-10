@@ -1,24 +1,24 @@
 package id.co.egifcb.peklatour.peklatour.ui.akunsaya
 
+import android.support.v7.widget.CardView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseFragment
 import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
-import kotlinx.android.synthetic.main.fragment_akun_saya.*
-import org.jetbrains.anko.startActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.daftar.DaftarActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.masuk.MasukActivity
-import org.jetbrains.anko.find
+import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_akun_saya.*
+import org.jetbrains.anko.*
 
 class AkunSayaFragment : BaseFragment(), View.OnClickListener {
     private lateinit var preferencesUser: PreferencesUser
-    private lateinit var llLogin: LinearLayout
+    private lateinit var llLogin: CardView
     private lateinit var tvEmail: TextView
     private lateinit var tvNama: TextView
-    private lateinit var tvKeluar: TextView
+    private lateinit var llKeluar: LinearLayout
 
     override fun contentView(): Int {
         return R.layout.fragment_akun_saya
@@ -28,10 +28,11 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
         llLogin = view.find(R.id.ll_login)
         tvEmail = view.find(R.id.tv_email)
         tvNama = view.find(R.id.tv_nama)
-        tvKeluar = view.find(R.id.tv_keluar)
+        llKeluar = view.find(R.id.ll_keluar)
 
         btn_login.setOnClickListener(this)
         btn_register.setOnClickListener(this)
+        llKeluar.setOnClickListener(this)
 
         preferencesUser = PreferencesUser(requireContext())
 
@@ -58,8 +59,18 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
                 requireContext().startActivity<DaftarActivity>()
             }
 
-            R.id.tv_keluar -> {
-                preferencesUser.logoutUser()
+            R.id.ll_keluar -> {
+                requireContext().alert("Apakah anda yakin akan keluar ?") {
+                    yesButton {
+                        preferencesUser.logoutUser()
+
+                        requireContext().startActivity<MainActivity>()
+                    }
+
+                    noButton {
+                        it.dismiss()
+                    }
+                }.show()
             }
         }
     }

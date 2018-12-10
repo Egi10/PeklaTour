@@ -2,6 +2,7 @@ package id.co.egifcb.peklatour.peklatour.until
 
 import android.os.Build
 import android.text.Html
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -11,6 +12,12 @@ fun String.formatHtml(): String? {
     } else {
         Html.fromHtml(this).toString()
     }
+}
+
+fun String.formatRupiah(): String? {
+    val localeId = Locale("in", "ID")
+    val numberFormat = NumberFormat.getCurrencyInstance(localeId)
+    return numberFormat.format(this.toDouble())
 }
 
 fun String.formatDate(fromDate: String = "dd/MM//yyyy", toDateFormat: String = "EEEE, dd MMMM yyyy"): String? {

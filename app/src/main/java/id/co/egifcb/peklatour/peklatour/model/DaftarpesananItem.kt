@@ -1,7 +1,10 @@
 package id.co.egifcb.peklatour.peklatour.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class DaftarpesananItem(
 
 	@field:SerializedName("no")
@@ -19,6 +22,15 @@ data class DaftarpesananItem(
 	@field:SerializedName("tanggal_berangkat")
 	val tanggalBerangkat: String? = null,
 
+	@field:SerializedName("tujuan_tour")
+	val tujuanTour: String? = null,
+
+	@field:SerializedName("durasi_tour")
+	val durasiTour: String? = null,
+
 	@field:SerializedName("status_pesanan")
-	val statusPesanan: String? = null
-)
+	val statusPesanan: String? = null,
+
+	@field:SerializedName("biaya_tour")
+	val biayaTour: String? = null
+) : Parcelable

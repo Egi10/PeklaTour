@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
-import id.co.egifcb.peklatour.peklatour.until.formatDate
+import id.co.egifcb.peklatour.peklatour.until.formatRupiah
 import kotlinx.android.synthetic.main.layout_list_pesanan.view.*
 
 class AdapterPesanan(private val context: Context, private val list: List<DaftarpesananItem>, private val listener: (DaftarpesananItem) -> Unit)
@@ -19,13 +19,14 @@ class AdapterPesanan(private val context: Context, private val list: List<Daftar
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(list[position], listener)
+        holder.bindItem(list[position], listener, context)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bindItem(daftarpesananItem: DaftarpesananItem, listener: (DaftarpesananItem) -> Unit) {
-            itemView.tv_tanggal_berangkat.text = daftarpesananItem.tanggalBerangkat?.formatDate()
-            itemView.tv_jumlah_penumpang.text = daftarpesananItem.jumlahPenumpang
+        fun bindItem(daftarpesananItem: DaftarpesananItem, listener: (DaftarpesananItem) -> Unit, context: Context) {
+            itemView.tv_no_pesanan.text = context.getString(R.string.no_pesanan, daftarpesananItem.no.toString())
+            itemView.tv_biaya_tour.text = daftarpesananItem.biayaTour?.formatRupiah()
+            itemView.tv_tujuan_tour.text = daftarpesananItem.tujuanTour
             itemView.tv_status_pesanan.text = daftarpesananItem.statusPesanan
 
             itemView.setOnClickListener {

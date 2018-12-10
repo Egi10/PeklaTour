@@ -26,5 +26,8 @@ interface ApiInterface {
               @Field("id_daftar_tour") idDaftarTour: Int?,
               @Field("tanggal_berangkat") tanggalBerangkat: String?,
               @Field("jumlah_penumpang") jumlahPenumpang: String?,
-              @Field("id_pemesan") idPemesan: String?): Call<ApiResponse>
+              @Field("id_pemesan") idPemesan: String?,
+              @Field("tujuan_tour") tujuanTour: String?,
+              @Field("durasi_tour") durasiTour: String?,
+              @Field("biaya_tour") biayaTour: String?): Call<ApiResponse>
 }

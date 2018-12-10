@@ -55,4 +55,10 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     //WhellPicker
     implementation 'com.super_rabbit.wheel_picker:NumberPicker:1.0.1'
+    //QRGen
+    implementation 'com.github.kenglxn.QRGen:android:2.5.0'
+    //TiketView
+    implementation 'com.github.mreram:ticketview:1.0.0'
+    //Font
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 }
