@@ -1,4 +1,4 @@
-# PeklaTour
+# Pekla Tour
 Aplikasi Pemesanan Tour Untuk Wisata
 
 # Screenshot
