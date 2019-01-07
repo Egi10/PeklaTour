@@ -52,8 +52,9 @@ class PesananFragment : BaseFragment(), PesananView {
         val user = preferencesUser.getUserDetail()
         val id = user[preferencesUser.NO]
         id?.let {
-            if (it == "") {
-                pesananPresenter.getPesanan("0")
+            if (it.isEmpty()) {
+                llEmpty.visibility = View.VISIBLE
+                textMesage.text = getString(R.string.message_pemesanan)
             } else {
                 pesananPresenter.getPesanan(it)
             }

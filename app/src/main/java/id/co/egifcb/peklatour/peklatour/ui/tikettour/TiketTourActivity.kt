@@ -4,17 +4,19 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import id.co.egifcb.peklatour.peklatour.R
+import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_tiket_tour.*
 import net.glxn.qrgen.android.QRCode
 import org.jetbrains.anko.startActivity
 
-class TiketTourActivity : AppCompatActivity() {
+class TiketTourActivity : BaseActivity() {
+    override fun contentView(): Int {
+        return R.layout.activity_tiket_tour
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tiket_tour)
+    override fun onCreated() {
         title = "Tiket Tour"
 
         val items = intent.getParcelableExtra<DaftarpesananItem>("items")
