@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -10,40 +10,50 @@
         android:layout_marginTop="5dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp">
-    <RelativeLayout
+
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
         <ImageView
                 android:id="@+id/iv_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1:0.6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:contentDescription="@string/app_name"
-                android:src="@mipmap/ic_launcher"/>
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_alignParentBottom="true"
-                android:orientation="vertical">
-            <TextView
-                    android:id="@+id/tv_jenis_wisata"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_name"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"/>
-            <TextView
-                    android:id="@+id/tv_lama_perjalanan"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/app_name"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"/>
-        </LinearLayout>
-    </RelativeLayout>
+                tools:src="@color/colorAccent" />
 
+        <TextView
+                android:id="@+id/tv_jenis_wisata"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="16sp"
+                android:textAppearance="@style/TextAppearance.FontPath.Medium"
+                app:layout_constraintBottom_toTopOf="@id/tv_lama_perjalanan"
+                app:layout_constraintLeft_toLeftOf="@id/tv_lama_perjalanan"
+                app:layout_constraintRight_toRightOf="@id/tv_lama_perjalanan"
+                android:textColor="@android:color/white" />
+
+        <TextView
+                android:id="@+id/tv_lama_perjalanan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

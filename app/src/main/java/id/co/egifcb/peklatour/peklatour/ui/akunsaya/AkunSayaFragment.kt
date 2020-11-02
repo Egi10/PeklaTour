@@ -29,6 +29,8 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
         tvEmail = view.find(R.id.tv_email)
         tvNama = view.find(R.id.tv_nama)
         llKeluar = view.find(R.id.ll_keluar)
+        val title = view.find<TextView>(R.id.tv_title)
+        title.text = getString(R.string.akun_saya)
 
         btn_login.setOnClickListener(this)
         btn_register.setOnClickListener(this)

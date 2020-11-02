@@ -10,28 +10,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <android.support.v7.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/white">
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true"
-                        android:text="@string/pesanan"
-                        android:textColor="@color/colorPrimary"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginEnd="12dp"/>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+        <include layout="@layout/layout_app_bar" />
 
         <include layout="@layout/layout_empty" />
 

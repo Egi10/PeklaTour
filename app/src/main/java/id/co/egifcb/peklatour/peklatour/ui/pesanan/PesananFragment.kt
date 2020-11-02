@@ -38,6 +38,8 @@ class PesananFragment : BaseFragment(), PesananView {
         textMesage = view.find(R.id.text_message)
         swipeRefreshLayout = view.find(R.id.swipeRefresh)
         recyclerView = view.find(R.id.recyclerView)
+        val title = view.find<TextView>(R.id.tv_title)
+        title.text = getString(R.string.pesanan)
 
         swipeRefresh.post {
             loadData()
@@ -59,7 +61,7 @@ class PesananFragment : BaseFragment(), PesananView {
                 pesananPresenter.getPesanan(it)
             }
         }
-        adapterPesanan = AdapterPesanan(requireContext(), listPesanan) {
+        adapterPesanan = AdapterPesanan(listPesanan) {
             when(it.statusPesanan) {
                 "Pengajuan" -> {
                     requireContext().alert ("Mohon Menunggu, kami masih melakukan proses pesanan Anda") {

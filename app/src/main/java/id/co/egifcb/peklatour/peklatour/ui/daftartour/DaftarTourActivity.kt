@@ -51,7 +51,8 @@ class DaftarTourActivity : BaseActivity(), DaftarTourView {
         adapterDaftarTour = AdapterDaftarTour(this, listDaftarTour) {
             startActivity<PesanTourActivity>("items" to it)
         }
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        val layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapterDaftarTour
     }
 

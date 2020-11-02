@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -19,6 +19,7 @@
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.FontPath.Bold</item>
     </style>
 
     <style name="TextViewSubTitle">
@@ -38,6 +39,27 @@
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogSpotColor">@color/colorPrimary</item>
         <item name="DialogSpotCount">5</item>
+    </style>
+
+    <style name="TextAppearance.FontPath.Bold" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/Ubuntu-Bold.ttf</item>
+    </style>
+
+    <style name="TextAppearance.FontPath.Medium" parent="android:TextAppearance">
+        <!-- Custom Attr-->
+        <item name="fontPath">fonts/Ubuntu-Medium.ttf</item>
+    </style>
+
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="fontFamily">@font/ubuntu_medium</item>
     </style>
 
 </resources>
