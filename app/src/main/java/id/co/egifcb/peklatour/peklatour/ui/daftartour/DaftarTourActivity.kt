@@ -1,6 +1,6 @@
 package id.co.egifcb.peklatour.peklatour.ui.daftartour
 
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
@@ -51,7 +51,8 @@ class DaftarTourActivity : BaseActivity(), DaftarTourView {
         adapterDaftarTour = AdapterDaftarTour(this, listDaftarTour) {
             startActivity<PesanTourActivity>("items" to it)
         }
-        val layoutManager = GridLayoutManager(this, 2)
+        val layoutManager =
+            GridLayoutManager(this, 2)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapterDaftarTour
     }

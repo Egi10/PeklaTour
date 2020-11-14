@@ -1,8 +1,8 @@
 package id.co.egifcb.peklatour.peklatour.ui.home
 
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -62,7 +62,8 @@ class HomeFragment : BaseFragment(), HomeView {
         adapterJenisTour = AdapterJenisTour(listJenisTour) {
             requireContext().startActivity<DaftarTourActivity>("jenis_tempat" to it.jenisWisata)
         }
-        recyclerViewJenisTour.layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerViewJenisTour.layoutManager =
+            GridLayoutManager(requireContext(), 3)
         recyclerViewJenisTour.adapter = adapterJenisTour
 
         //LoadDataDestinasiFavorite

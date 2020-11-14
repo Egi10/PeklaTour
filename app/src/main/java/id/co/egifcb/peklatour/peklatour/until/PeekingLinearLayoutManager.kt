@@ -1,12 +1,13 @@
 package id.co.egifcb.peklatour.peklatour.until
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.ViewGroup
 
-class PeekingLinearLayoutManager : LinearLayoutManager {
+class PeekingLinearLayoutManager :
+    LinearLayoutManager {
     @JvmOverloads
     constructor(context: Context?, @RecyclerView.Orientation orientation: Int = RecyclerView.VERTICAL, reverseLayout: Boolean = false) : super(context, orientation, reverseLayout)
 

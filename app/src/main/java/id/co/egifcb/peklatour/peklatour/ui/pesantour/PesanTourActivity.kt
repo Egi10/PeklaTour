@@ -2,7 +2,7 @@ package id.co.egifcb.peklatour.peklatour.ui.pesantour
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.support.design.widget.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
@@ -91,7 +91,10 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.ll_penumpang -> {
-                val buttomSheetDialog = BottomSheetDialog(this)
+                val buttomSheetDialog =
+                    BottomSheetDialog(
+                        this
+                    )
                 val sheetView = layoutInflater.inflate(R.layout.layout_penumpang, null)
                 var ambilNilai = ""
                 val numberPicker = sheetView.find<WheelPicker>(R.id.numberPicker)

@@ -1,6 +1,6 @@
 package id.co.egifcb.peklatour.peklatour.ui.akunsaya
 
-import android.support.v7.widget.CardView
+import androidx.cardview.widget.CardView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
