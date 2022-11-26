@@ -1,20 +1,20 @@
 package id.co.egifcb.peklatour.peklatour.ui.pesanan
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.adapter.AdapterPesanan
 import id.co.egifcb.peklatour.peklatour.base.BaseFragment
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
 import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.tikettour.TiketTourActivity
+import id.co.egifcb.peklatour.peklatour.until.startActivity
+import id.co.egifcb.peklatour.peklatour.until.toast
 import kotlinx.android.synthetic.main.fragment_pesanan.*
-import org.jetbrains.anko.*
 
 class PesananFragment : BaseFragment(), PesananView {
     private lateinit var pesananPresenter: PesananPresenter
@@ -34,11 +34,11 @@ class PesananFragment : BaseFragment(), PesananView {
         pesananPresenter = PesananPresenter(this)
 
         preferencesUser = PreferencesUser(requireContext())
-        llEmpty = view.find(R.id.ll_empty)
-        textMesage = view.find(R.id.text_message)
-        swipeRefreshLayout = view.find(R.id.swipeRefresh)
-        recyclerView = view.find(R.id.recyclerView)
-        val title = view.find<TextView>(R.id.tv_title)
+        llEmpty = view.findViewById(R.id.ll_empty)
+        textMesage = view.findViewById(R.id.text_message)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
+        recyclerView = view.findViewById(R.id.recyclerView)
+        val title = view.findViewById<TextView>(R.id.tv_title)
         title.text = getString(R.string.pesanan)
 
         swipeRefresh.post {
@@ -62,17 +62,19 @@ class PesananFragment : BaseFragment(), PesananView {
             }
         }
         adapterPesanan = AdapterPesanan(listPesanan) {
-            when(it.statusPesanan) {
+            when (it.statusPesanan) {
                 "Pengajuan" -> {
-                    requireContext().alert ("Mohon Menunggu, kami masih melakukan proses pesanan Anda") {
-                        yesButton { dialog ->
-                            dialog.dismiss()
-                        }
-                    }.show()
+//                    requireContext().alert ("Mohon Menunggu, kami masih melakukan proses pesanan Anda") {
+//                        yesButton { dialog ->
+//                            dialog.dismiss()
+//                        }
+//                    }.show()
                 }
 
                 "Pengajuan Diterima" -> {
-                    requireContext().startActivity<TiketTourActivity>("items" to it)
+                    requireContext().startActivity<TiketTourActivity> {
+                        putExtra("items", it)
+                    }
                 }
 
                 else -> {

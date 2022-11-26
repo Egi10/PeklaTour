@@ -1,18 +1,14 @@
 package id.co.egifcb.peklatour.peklatour.ui.main
 
-import android.content.Intent
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.fragment.app.Fragment
 import android.view.KeyEvent
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.AkunSayaFragment
 import id.co.egifcb.peklatour.peklatour.ui.home.HomeFragment
 import id.co.egifcb.peklatour.peklatour.ui.pesanan.PesananFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.yesButton
 
 class MainActivity : BaseActivity() {
     private lateinit var fragment: Fragment
@@ -75,19 +71,19 @@ class MainActivity : BaseActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            alert("Apakah anda yakin untuk keluar ?") {
-                yesButton {
-                    val intent = Intent(Intent.ACTION_MAIN)
-                    intent.addCategory(Intent.CATEGORY_HOME)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-
-                noButton {
-                    it.dismiss()
-                }
-            }.show()
+//            alert("Apakah anda yakin untuk keluar ?") {
+//                yesButton {
+//                    val intent = Intent(Intent.ACTION_MAIN)
+//                    intent.addCategory(Intent.CATEGORY_HOME)
+//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                    startActivity(intent)
+//                    finish()
+//                }
+//
+//                noButton {
+//                    it.dismiss()
+//                }
+//            }.show()
         }
         return super.onKeyDown(keyCode, event)
     }

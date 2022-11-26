@@ -1,13 +1,10 @@
 package id.co.egifcb.peklatour.peklatour.ui.home
 
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import com.smarteist.autoimageslider.SliderLayout
-import com.smarteist.autoimageslider.SliderView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.adapter.AdapterJenisTour
 import id.co.egifcb.peklatour.peklatour.adapter.AdapterTourFavorite
@@ -17,10 +14,9 @@ import id.co.egifcb.peklatour.peklatour.model.JenisTourItem
 import id.co.egifcb.peklatour.peklatour.model.PromotourItem
 import id.co.egifcb.peklatour.peklatour.ui.daftartour.DaftarTourActivity
 import id.co.egifcb.peklatour.peklatour.until.PeekingLinearLayoutManager
+import id.co.egifcb.peklatour.peklatour.until.startActivity
+import id.co.egifcb.peklatour.peklatour.until.toast
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class HomeFragment : BaseFragment(), HomeView {
     private lateinit var homePresenter: HomePresenter
@@ -30,7 +26,8 @@ class HomeFragment : BaseFragment(), HomeView {
     private lateinit var adapterJenisTour: AdapterJenisTour
     private lateinit var adapterTourFavorite: AdapterTourFavorite
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var sliderLayout: SliderLayout
+
+    //    private lateinit var sliderLayout: SliderLayout
     private lateinit var pilihTour: TextView
     private lateinit var tourFavorite: TextView
 
@@ -41,10 +38,10 @@ class HomeFragment : BaseFragment(), HomeView {
     override fun onCreated(view: View) {
         homePresenter = HomePresenter(this)
 
-        swipeRefreshLayout = view.find(R.id.swipeRefresh)
-        sliderLayout = view.find(R.id.imageSlider)
-        pilihTour = view.find(R.id.tv_piloih_tour)
-        tourFavorite = view.find(R.id.tv_tour_favorite)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
+//        sliderLayout = view.find(R.id.imageSlider)
+        pilihTour = view.findViewById(R.id.tv_piloih_tour)
+        tourFavorite = view.findViewById(R.id.tv_tour_favorite)
 
         swipeRefresh.post {
             loadData()
@@ -60,7 +57,9 @@ class HomeFragment : BaseFragment(), HomeView {
 
         //LoadDataMenu
         adapterJenisTour = AdapterJenisTour(listJenisTour) {
-            requireContext().startActivity<DaftarTourActivity>("jenis_tempat" to it.jenisWisata)
+            requireContext().startActivity<DaftarTourActivity>() {
+                putExtra("jenis_tempat", it.jenisWisata)
+            }
         }
         recyclerViewJenisTour.layoutManager =
             GridLayoutManager(requireContext(), 3)
@@ -70,9 +69,9 @@ class HomeFragment : BaseFragment(), HomeView {
         adapterTourFavorite = AdapterTourFavorite(listJenisTourFavorite) {
 
         }
-        recyclerViewTourFavorite.layoutManager = PeekingLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewTourFavorite.layoutManager =
+            PeekingLinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerViewTourFavorite.adapter = adapterTourFavorite
-
 
 
     }
@@ -98,16 +97,16 @@ class HomeFragment : BaseFragment(), HomeView {
         list?.let {
             listImage.addAll(it)
         }
-        sliderLayout.setIndicatorAnimation(SliderLayout.Animations.SCALE_DOWN)
-        sliderLayout.scrollTimeInSec = 2
-        val sliderView = SliderView(requireContext())
-        listImage.let {
-            for (i in it.indices) {
-                sliderView.imageUrl = it[i].image
-                sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-                sliderLayout.addSliderView(sliderView)
-            }
-        }
+//        sliderLayout.setIndicatorAnimation(SliderLayout.Animations.SCALE_DOWN)
+//        sliderLayout.scrollTimeInSec = 2
+//        val sliderView = SliderView(requireContext())
+//        listImage.let {
+//            for (i in it.indices) {
+//                sliderView.imageUrl = it[i].image
+//                sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+//                sliderLayout.addSliderView(sliderView)
+//            }
+//        }
     }
 
     override fun onEmpty() {

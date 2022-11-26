@@ -2,25 +2,18 @@ package id.co.egifcb.peklatour.peklatour.ui.pesantour
 
 import android.app.AlertDialog
 import android.app.DatePickerDialog
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import com.super_rabbit.wheel_picker.OnValueChangeListener
-import com.super_rabbit.wheel_picker.WheelPicker
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.DaftartourItem
 import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
-import id.co.egifcb.peklatour.peklatour.ui.akunsaya.masuk.MasukActivity
 import id.co.egifcb.peklatour.peklatour.ui.daftartour.DaftarTourActivity
-import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
-import id.co.egifcb.peklatour.peklatour.until.DialogLoading
-import id.co.egifcb.peklatour.peklatour.until.formatHtml
-import id.co.egifcb.peklatour.peklatour.until.formatRupiah
+import id.co.egifcb.peklatour.peklatour.until.*
 import kotlinx.android.synthetic.main.activity_pesan_tour.*
-import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -38,7 +31,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 
     override fun onCreated() {
         title = "Pesan Tour"
-        items = intent.getParcelableExtra("items")
+        items = intent.getParcelableExtra("items")!!
 
         tv_tujuan_tour.text = items.namaTempat
         tv_durasi_tour.text = items.durasiTour
@@ -58,14 +51,14 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
     }
 
     override fun onSuccess(message: String?) {
-        alert(message.toString()) {
-            yesButton {
-                startActivity<MainActivity>()
-                finish()
-            }
-        }.apply {
-            isCancelable = false
-        }.show()
+//        alert(message.toString()) {
+//            yesButton {
+//                startActivity<MainActivity>()
+//                finish()
+//            }
+//        }.apply {
+//            isCancelable = false
+//        }.show()
     }
 
     override fun showLoading() {
@@ -89,7 +82,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
     }
 
     override fun onClick(v: View?) {
-        when(v?.id) {
+        when (v?.id) {
             R.id.ll_penumpang -> {
                 val buttomSheetDialog =
                     BottomSheetDialog(
@@ -97,21 +90,21 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
                     )
                 val sheetView = layoutInflater.inflate(R.layout.layout_penumpang, null)
                 var ambilNilai = ""
-                val numberPicker = sheetView.find<WheelPicker>(R.id.numberPicker)
-                val pilih = sheetView.find<Button>(R.id.btn_pilih)
-                val batal = sheetView.find<Button>(R.id.btn_batal)
+//                val numberPicker = sheetView.findViewById<WheelPicker>(R.id.numberPicker)
+                val pilih = sheetView.findViewById<Button>(R.id.btn_pilih)
+                val batal = sheetView.findViewById<Button>(R.id.btn_batal)
 
-                numberPicker.setSelectorRoundedWrapPreferred(true)
-                numberPicker.setWheelItemCount(5)
-                numberPicker.setMin(2)
-                numberPicker.setMax(7)
-                numberPicker.setSelectedTextColor(R.color.color_4_blue)
-                numberPicker.setUnselectedTextColor(R.color.color_3_dark_blue)
-                numberPicker.setOnValueChangeListener(object : OnValueChangeListener {
-                    override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
-                        ambilNilai = newVal
-                    }
-                })
+//                numberPicker.setSelectorRoundedWrapPreferred(true)
+//                numberPicker.setWheelItemCount(5)
+//                numberPicker.setMin(2)
+//                numberPicker.setMax(7)
+//                numberPicker.setSelectedTextColor(R.color.color_4_blue)
+//                numberPicker.setUnselectedTextColor(R.color.color_3_dark_blue)
+//                numberPicker.setOnValueChangeListener(object : OnValueChangeListener {
+//                    override fun onValueChange(picker: WheelPicker, oldVal: String, newVal: String) {
+//                        ambilNilai = newVal
+//                    }
+//                })
 
                 pilih.setOnClickListener {
                     val format = String.format("%s Orang", ambilNilai)
@@ -135,18 +128,24 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
                 val month = calendar.get(Calendar.MONTH)
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val datePickerDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    val date = Calendar.getInstance()
-                    date.set(Calendar.YEAR, year)
-                    date.set(Calendar.MONTH, monthOfYear)
-                    date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val datePickerDialog = DatePickerDialog(
+                    this,
+                    DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                        val date = Calendar.getInstance()
+                        date.set(Calendar.YEAR, year)
+                        date.set(Calendar.MONTH, monthOfYear)
+                        date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-                    val datee = date.time
-                    val simpleDateFormat = SimpleDateFormat("dd/MM//yyyy", Locale.getDefault())
-                    val dateString = simpleDateFormat.format(datee)
+                        val datee = date.time
+                        val simpleDateFormat = SimpleDateFormat("dd/MM//yyyy", Locale.getDefault())
+                        val dateString = simpleDateFormat.format(datee)
 
-                    tv_tanggal_berangkat.text = dateString
-                }, year, month, day)
+                        tv_tanggal_berangkat.text = dateString
+                    },
+                    year,
+                    month,
+                    day
+                )
                 calendar.add(Calendar.DAY_OF_MONTH, 2)
                 datePickerDialog.datePicker.minDate = calendar.timeInMillis
                 calendar.add(Calendar.MONTH, 1)
@@ -157,16 +156,16 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 
             R.id.btn_pesan -> {
                 if (!preferencesUser.isLooggedIn()) {
-                    alert("Anda belum masuk untuk melakukan pemesanan. Apakah Anda ingin masuk ?") {
-                        yesButton {
-                            startActivity<MasukActivity>()
-                            finish()
-                        }
-
-                        noButton {
-                            it.dismiss()
-                        }
-                    }.show()
+//                    alert("Anda belum masuk untuk melakukan pemesanan. Apakah Anda ingin masuk ?") {
+//                        yesButton {
+//                            startActivity<MasukActivity>()
+//                            finish()
+//                        }
+//
+//                        noButton {
+//                            it.dismiss()
+//                        }
+//                    }.show()
                 } else {
                     val user = preferencesUser.getUserDetail()
                     val id = user[preferencesUser.NO]
@@ -184,8 +183,15 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
                         }
 
                         else -> {
-                            pesanTourPresenter.pesan(items.no, tv_tanggal_berangkat.text.toString(), tv_penumpang.text.toString(), id,
-                                tv_tujuan_tour.text.toString(), tv_durasi_tour.text.toString(), biayaTour)
+                            pesanTourPresenter.pesan(
+                                items.no,
+                                tv_tanggal_berangkat.text.toString(),
+                                tv_penumpang.text.toString(),
+                                id,
+                                tv_tujuan_tour.text.toString(),
+                                tv_durasi_tour.text.toString(),
+                                biayaTour
+                            )
                         }
                     }
                 }
@@ -193,10 +199,12 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> {
-                startActivity(intentFor<DaftarTourActivity>("jenis_tempat" to items.jenisTempat).clearTop())
+                startActivity<DaftarTourActivity> {
+                    putExtra("jenis_tempat", items.jenisTempat)
+                }
                 return true
             }
         }
@@ -205,7 +213,9 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity(intentFor<DaftarTourActivity>("jenis_tempat" to items.jenisTempat).clearTop())
+            startActivity<DaftarTourActivity> {
+                putExtra("jenis_tempat", items.jenisTempat)
+            }
         }
         return super.onKeyDown(keyCode, event)
     }

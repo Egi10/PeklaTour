@@ -5,9 +5,9 @@ import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.masuk.MasukActivity
 import id.co.egifcb.peklatour.peklatour.until.DialogLoading
+import id.co.egifcb.peklatour.peklatour.until.startActivity
+import id.co.egifcb.peklatour.peklatour.until.toast
 import kotlinx.android.synthetic.main.activity_daftar.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class DaftarActivity : BaseActivity(), DaftarView, View.OnClickListener {
     private lateinit var daftarPresenter: DaftarPresenter

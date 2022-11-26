@@ -10,8 +10,8 @@ import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.daftar.DaftarActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.masuk.MasukActivity
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
+import id.co.egifcb.peklatour.peklatour.until.startActivity
 import kotlinx.android.synthetic.main.fragment_akun_saya.*
-import org.jetbrains.anko.*
 
 class AkunSayaFragment : BaseFragment(), View.OnClickListener {
     private lateinit var preferencesUser: PreferencesUser
@@ -25,11 +25,11 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onCreated(view: View) {
-        llLogin = view.find(R.id.ll_login)
-        tvEmail = view.find(R.id.tv_email)
-        tvNama = view.find(R.id.tv_nama)
-        llKeluar = view.find(R.id.ll_keluar)
-        val title = view.find<TextView>(R.id.tv_title)
+        llLogin = view.findViewById(R.id.ll_login)
+        tvEmail = view.findViewById(R.id.tv_email)
+        tvNama = view.findViewById(R.id.tv_nama)
+        llKeluar = view.findViewById(R.id.ll_keluar)
+        val title = view.findViewById<TextView>(R.id.tv_title)
         title.text = getString(R.string.akun_saya)
 
         btn_login.setOnClickListener(this)
@@ -62,17 +62,17 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
             }
 
             R.id.ll_keluar -> {
-                requireContext().alert("Apakah anda yakin akan keluar ?") {
-                    yesButton {
-                        preferencesUser.logoutUser()
-
-                        requireContext().startActivity<MainActivity>()
-                    }
-
-                    noButton {
-                        it.dismiss()
-                    }
-                }.show()
+//                requireContext().alert("Apakah anda yakin akan keluar ?") {
+//                    yesButton {
+//                        preferencesUser.logoutUser()
+//
+//                        requireContext().startActivity<MainActivity>()
+//                    }
+//
+//                    noButton {
+//                        it.dismiss()
+//                    }
+//                }.show()
             }
         }
     }

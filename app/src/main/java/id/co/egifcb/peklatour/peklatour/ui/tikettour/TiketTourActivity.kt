@@ -1,15 +1,13 @@
 package id.co.egifcb.peklatour.peklatour.ui.tikettour
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
+import id.co.egifcb.peklatour.peklatour.until.startActivity
 import kotlinx.android.synthetic.main.activity_tiket_tour.*
 import net.glxn.qrgen.android.QRCode
-import org.jetbrains.anko.startActivity
 
 class TiketTourActivity : BaseActivity() {
     override fun contentView(): Int {
@@ -21,17 +19,17 @@ class TiketTourActivity : BaseActivity() {
 
         val items = intent.getParcelableExtra<DaftarpesananItem>("items")
 
-        tv_no_pesanan.text = getString(R.string.nopesanan, items.no.toString())
-        tv_biaya_tour.text = getString(R.string.biayatour, items.biayaTour)
-        tv_tujuan_tour.text = items.tujuanTour
-        tv_jumlah_penumpang.text = getString(R.string.jumlahpenumpang, items.jumlahPenumpang)
-        tv_durasi_tour.text = getString(R.string.durasitour, items.durasiTour)
-        val myBitmap = QRCode.from(items.no.toString()).withSize(450, 450).bitmap()
+        tv_no_pesanan.text = getString(R.string.nopesanan, items?.no.toString())
+        tv_biaya_tour.text = getString(R.string.biayatour, items?.biayaTour)
+        tv_tujuan_tour.text = items?.tujuanTour
+        tv_jumlah_penumpang.text = getString(R.string.jumlahpenumpang, items?.jumlahPenumpang)
+        tv_durasi_tour.text = getString(R.string.durasitour, items?.durasiTour)
+        val myBitmap = QRCode.from(items?.no.toString()).withSize(450, 450).bitmap()
         iv_qr_code.setImageBitmap(myBitmap)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> {
                 back()
                 return true
@@ -46,6 +44,8 @@ class TiketTourActivity : BaseActivity() {
     }
 
     private fun back() {
-        startActivity<MainActivity>("posisi" to "2")
+        startActivity<MainActivity> {
+            putExtra("posisi", "2")
+        }
     }
 }

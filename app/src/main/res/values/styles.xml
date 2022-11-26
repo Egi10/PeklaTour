@@ -35,12 +35,6 @@
         <item name="android:layout_marginBottom">10dp</item>
     </style>
 
-    <style name="Custom" parent="Theme.AppCompat.Light.Dialog">
-        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="DialogSpotColor">@color/colorPrimary</item>
-        <item name="DialogSpotCount">5</item>
-    </style>
-
     <style name="TextAppearance.FontPath.Bold" parent="android:TextAppearance">
         <!-- Custom Attr-->
         <item name="fontPath">fonts/Ubuntu-Bold.ttf</item>

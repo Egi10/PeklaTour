@@ -8,9 +8,9 @@ import id.co.egifcb.peklatour.peklatour.model.LoginItem
 import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import id.co.egifcb.peklatour.peklatour.until.DialogLoading
+import id.co.egifcb.peklatour.peklatour.until.startActivity
+import id.co.egifcb.peklatour.peklatour.until.toast
 import kotlinx.android.synthetic.main.activity_masuk.*
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class MasukActivity : BaseActivity(), MasukView, View.OnClickListener {
     private lateinit var masukPresenter: MasukPresenter

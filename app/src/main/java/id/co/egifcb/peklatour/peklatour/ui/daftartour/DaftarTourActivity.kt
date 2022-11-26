@@ -1,20 +1,19 @@
 package id.co.egifcb.peklatour.peklatour.ui.daftartour
 
-import androidx.recyclerview.widget.GridLayoutManager
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.adapter.AdapterDaftarTour
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.DaftartourItem
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import id.co.egifcb.peklatour.peklatour.ui.pesantour.PesanTourActivity
+import id.co.egifcb.peklatour.peklatour.until.startActivity
+import id.co.egifcb.peklatour.peklatour.until.toast
 import kotlinx.android.synthetic.main.activity_daftar_tour.*
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 
 class DaftarTourActivity : BaseActivity(), DaftarTourView {
     private lateinit var daftarTourPresenter: DaftarTourPresenter
@@ -31,10 +30,10 @@ class DaftarTourActivity : BaseActivity(), DaftarTourView {
         title = "Daftar Tour"
 
         daftarTourPresenter = DaftarTourPresenter(this)
-        llEmpty = find(R.id.ll_empty)
+        llEmpty = findViewById(R.id.ll_empty)
 
         val inten = intent
-        jenisTempat = inten.getStringExtra("jenis_tempat")
+        jenisTempat = inten.getStringExtra("jenis_tempat").toString()
 
         swipeRefresh.post {
             loadData()
@@ -49,7 +48,9 @@ class DaftarTourActivity : BaseActivity(), DaftarTourView {
         daftarTourPresenter.getDaftarTour(jenisTempat)
 
         adapterDaftarTour = AdapterDaftarTour(this, listDaftarTour) {
-            startActivity<PesanTourActivity>("items" to it)
+            startActivity<PesanTourActivity> {
+                intent.putExtra("items", it)
+            }
         }
         val layoutManager =
             GridLayoutManager(this, 2)
@@ -85,8 +86,8 @@ class DaftarTourActivity : BaseActivity(), DaftarTourView {
         toast(message.toString())
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> {
                 back()
                 return true

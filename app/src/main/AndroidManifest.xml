@@ -13,7 +13,8 @@
             android:theme="@style/AppTheme">
         <activity
                 android:name=".ui.splashscreen.SplashScreenActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -23,24 +24,29 @@
         <activity
                 android:name=".ui.main.MainActivity"
                 android:label="@string/title_activity_main"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:exported="true">
         </activity>
-        <activity android:name=".ui.daftartour.DaftarTourActivity">
+        <activity android:name=".ui.daftartour.DaftarTourActivity"
+                android:exported="true">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.akunsaya.daftar.DaftarActivity">
+        <activity android:name=".ui.akunsaya.daftar.DaftarActivity"
+                android:exported="true">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.akunsaya.masuk.MasukActivity">
+        <activity android:name=".ui.akunsaya.masuk.MasukActivity"
+                android:exported="true">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.main.MainActivity"/>
         </activity>
-        <activity android:name=".ui.pesantour.PesanTourActivity">
+        <activity android:name=".ui.pesantour.PesanTourActivity"
+                android:exported="true">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".ui.daftartour.DaftarTourActivity"/>
