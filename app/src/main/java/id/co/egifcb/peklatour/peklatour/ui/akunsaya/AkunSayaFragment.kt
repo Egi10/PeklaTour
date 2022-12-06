@@ -6,10 +6,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseFragment
-import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
+import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.daftar.DaftarActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.masuk.MasukActivity
-import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import id.co.egifcb.peklatour.peklatour.until.startActivity
 import kotlinx.android.synthetic.main.fragment_akun_saya.*
 
@@ -38,7 +37,7 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
 
         preferencesUser = PreferencesUser(requireContext())
 
-        if (!preferencesUser.isLooggedIn()) {
+        if (!preferencesUser.isLoggedIn()) {
             ll_no_login.visibility = View.VISIBLE
             llLogin.visibility = View.GONE
         } else {
@@ -46,8 +45,8 @@ class AkunSayaFragment : BaseFragment(), View.OnClickListener {
             llLogin.visibility = View.VISIBLE
 
             val user = preferencesUser.getUserDetail()
-            tvEmail.text = user[preferencesUser.EMAIL]
-            tvNama.text = user[preferencesUser.NAMA]
+            tvEmail.text = user[PreferencesUser.EMAIL]
+            tvNama.text = user[PreferencesUser.NAME]
         }
     }
 

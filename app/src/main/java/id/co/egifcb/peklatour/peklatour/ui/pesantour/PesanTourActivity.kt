@@ -10,7 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.DaftartourItem
-import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
+import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.daftartour.DaftarTourActivity
 import id.co.egifcb.peklatour.peklatour.until.*
 import kotlinx.android.synthetic.main.activity_pesan_tour.*
@@ -155,7 +155,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
             }
 
             R.id.btn_pesan -> {
-                if (!preferencesUser.isLooggedIn()) {
+                if (!preferencesUser.isLoggedIn()) {
 //                    alert("Anda belum masuk untuk melakukan pemesanan. Apakah Anda ingin masuk ?") {
 //                        yesButton {
 //                            startActivity<MasukActivity>()
@@ -168,7 +168,7 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
 //                    }.show()
                 } else {
                     val user = preferencesUser.getUserDetail()
-                    val id = user[preferencesUser.NO]
+                    val id = user[PreferencesUser.NO]
 
                     val tanggal = tv_tanggal_berangkat.text.toString()
                     val penumpang = tv_penumpang.text.toString()

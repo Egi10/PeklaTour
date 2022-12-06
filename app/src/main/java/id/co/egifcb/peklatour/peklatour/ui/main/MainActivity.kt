@@ -7,7 +7,7 @@ import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.ui.akunsaya.AkunSayaFragment
 import id.co.egifcb.peklatour.peklatour.ui.home.HomeFragment
-import id.co.egifcb.peklatour.peklatour.ui.pesanan.PesananFragment
+import id.co.egifcb.peklatour.peklatour.ui.order.PesananFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {

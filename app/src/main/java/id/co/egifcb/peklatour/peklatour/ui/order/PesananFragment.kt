@@ -1,4 +1,4 @@
-package id.co.egifcb.peklatour.peklatour.ui.pesanan
+package id.co.egifcb.peklatour.peklatour.ui.order
 
 import android.view.View
 import android.widget.LinearLayout
@@ -10,7 +10,7 @@ import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.adapter.AdapterPesanan
 import id.co.egifcb.peklatour.peklatour.base.BaseFragment
 import id.co.egifcb.peklatour.peklatour.model.DaftarpesananItem
-import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
+import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.tikettour.TiketTourActivity
 import id.co.egifcb.peklatour.peklatour.until.startActivity
 import id.co.egifcb.peklatour.peklatour.until.toast
@@ -52,7 +52,7 @@ class PesananFragment : BaseFragment(), PesananView {
 
     private fun loadData() {
         val user = preferencesUser.getUserDetail()
-        val id = user[preferencesUser.NO]
+        val id = user[PreferencesUser.NO]
         id?.let {
             if (it.isEmpty()) {
                 llEmpty.visibility = View.VISIBLE

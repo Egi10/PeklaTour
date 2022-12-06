@@ -1,4 +1,4 @@
-package id.co.egifcb.peklatour.peklatour.ui.pesanan
+package id.co.egifcb.peklatour.peklatour.ui.order
 
 import id.co.egifcb.peklatour.peklatour.api.ApiConfig
 import id.co.egifcb.peklatour.peklatour.api.ApiResponse

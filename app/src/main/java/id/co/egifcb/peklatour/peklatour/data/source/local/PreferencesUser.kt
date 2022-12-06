@@ -1,18 +1,11 @@
-package id.co.egifcb.peklatour.peklatour.preferences
+package id.co.egifcb.peklatour.peklatour.data.source.local
 
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferencesUser (context: Context) {
+class PreferencesUser(context: Context) {
     private var sharedPreferences: SharedPreferences
     private var editor: SharedPreferences.Editor
-
-    private val PREFS_FILENAME = "login"
-    private val LOGIN = "isLogin"
-
-    val NO = "no"
-    val EMAIL = "email"
-    val NAMA = "nama"
 
     init {
         sharedPreferences = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
@@ -20,15 +13,15 @@ class PreferencesUser (context: Context) {
         editor.apply()
     }
 
-    fun createLogin(no: String?, email: String?, nama: String?) {
+    fun createLogin(no: String?, email: String?, name: String?) {
         editor.putBoolean(LOGIN, true)
         editor.putString(NO, no)
         editor.putString(EMAIL, email)
-        editor.putString(NAMA, nama)
+        editor.putString(NAME, name)
         editor.commit()
     }
 
-    fun isLooggedIn(): Boolean {
+    fun isLoggedIn(): Boolean {
         return sharedPreferences.getBoolean(LOGIN, false)
     }
 
@@ -36,12 +29,21 @@ class PreferencesUser (context: Context) {
         val user = HashMap<String?, String?>()
         user[NO] = sharedPreferences.getString(NO, "")
         user[EMAIL] = sharedPreferences.getString(EMAIL, "")
-        user[NAMA] = sharedPreferences.getString(NAMA, "")
+        user[NAME] = sharedPreferences.getString(NAME, "")
         return user
     }
 
     fun logoutUser() {
         editor.clear()
         editor.commit()
+    }
+
+    companion object {
+        private const val PREFS_FILENAME = "login"
+        private const val LOGIN = "isLogin"
+
+        const val NO = "no"
+        const val EMAIL = "email"
+        const val NAME = "nama"
     }
 }

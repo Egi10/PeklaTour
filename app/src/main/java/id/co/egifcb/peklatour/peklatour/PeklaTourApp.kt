@@ -1,0 +1,283 @@
+package id.co.egifcb.peklatour.peklatour
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.get
+import id.co.egifcb.peklatour.peklatour.navigation.NavigationItem
+import id.co.egifcb.peklatour.peklatour.navigation.Screen
+import id.co.egifcb.peklatour.peklatour.ui.auth.login.LoginRoute
+import id.co.egifcb.peklatour.peklatour.ui.home.HomeRoute
+import id.co.egifcb.peklatour.peklatour.ui.order.OrderRoute
+import id.co.egifcb.peklatour.peklatour.ui.profile.ProfileRoute
+import id.co.egifcb.peklatour.peklatour.ui.splashscreen.SplashRoute
+import id.co.egifcb.peklatour.peklatour.ui.theme.PeklaTourTheme
+import id.co.egifcb.peklatour.peklatour.ui.theme.black60
+
+@Composable
+fun PeklaTourApp(
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController = rememberNavController()
+) {
+    val currentRoute = currentRoute(navHostController)
+
+    Scaffold(
+        topBar = {
+            if (routeBottomBar.contains(currentRoute)) {
+                TopBar(
+                    navHostController = navHostController
+                )
+            } else if (currentRoute != Screen.Splash.route) {
+                TopBarContent(
+                    title = titleTopAppBar(
+                        route = currentRoute.toString()
+                    ),
+                    navigationOnClick = {
+                        navHostController.navigateUp()
+                    }
+                )
+            }
+        },
+        bottomBar = {
+            if (routeBottomBar.contains(currentRoute)) {
+                BottomBar(
+                    navHostController = navHostController
+                )
+            }
+        },
+        modifier = modifier,
+        content = {
+            NavHost(
+                navController = navHostController,
+                startDestination = Screen.Splash.route,
+                modifier = Modifier
+                    .padding(it)
+            ) {
+                composable(
+                    route = Screen.Splash.route
+                ) {
+                    SplashRoute(
+                        navigationToHome = {
+                            navHostController.popBackStack()
+                            navHostController.navigate(Screen.Home.route) {
+                                launchSingleTop = true
+                            }
+                        }
+                    )
+                }
+
+                // Dashboard
+                composable(
+                    route = Screen.Home.route
+                ) {
+                    HomeRoute()
+                }
+
+                composable(
+                    route = Screen.Order.route
+                ) {
+                    OrderRoute()
+                }
+
+                composable(
+                    route = Screen.Profile.route
+                ) {
+                    ProfileRoute(
+                        loginOnClick = {
+                            navHostController.navigate(
+                                Screen.Login.route
+                            ) {
+                                launchSingleTop = true
+                            }
+                        },
+                        registerOnLogin = {
+
+                        }
+                    )
+                }
+
+                // Auth
+                composable(
+                    route = Screen.Login.route
+                ) {
+                    LoginRoute(
+                        onSuccessLogin = {
+                            navHostController.popBackStack()
+                            navHostController.navigate(
+                                Screen.Home.route
+                            ) {
+                                popUpTo(Screen.Profile.route) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    )
+}
+
+private val routeBottomBar = listOf(
+    Screen.Home.route,
+    Screen.Order.route,
+    Screen.Profile.route
+)
+
+private fun titleTopAppBar(route: String) = when (route) {
+    Screen.Login.route -> "Masuk Pekla Tour"
+    else -> "Belum Ada"
+}
+
+@Composable
+fun TopBar(
+    navHostController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    TopAppBar(
+        modifier = modifier,
+        backgroundColor = Color.White
+    ) {
+        val title = when (currentRoute(navHostController)) {
+            Screen.Home.route -> {
+                stringResource(id = R.string.app_name)
+            }
+
+            Screen.Order.route -> {
+                stringResource(id = R.string.pesanan)
+            }
+
+            else -> {
+                stringResource(id = R.string.akun_saya)
+            }
+        }
+
+        Text(
+            text = title.uppercase(),
+            style = PeklaTourTheme.typography.title,
+            color = MaterialTheme.colors.primary,
+            textAlign = TextAlign.Center,
+            fontSize = 18.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+fun TopBarContent(
+    title: String,
+    navigationOnClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    TopAppBar(
+        modifier = modifier
+            .fillMaxWidth(),
+        title = {
+            Text(
+                text = title,
+                style = PeklaTourTheme.typography.title,
+                color = Color.White,
+                fontSize = 18.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = navigationOnClick) {
+                Icon(Icons.Filled.ArrowBack, null)
+            }
+        },
+        backgroundColor = MaterialTheme.colors.primary
+    )
+}
+
+@Composable
+private fun BottomBar(
+    navHostController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    BottomNavigation(
+        modifier = modifier
+    ) {
+        val navigationItems = listOf(
+            NavigationItem(
+                title = stringResource(id = R.string.awal),
+                icon = painterResource(id = R.drawable.ic_home),
+                screen = Screen.Home
+            ),
+            NavigationItem(
+                title = stringResource(id = R.string.pesanan),
+                icon = painterResource(id = R.drawable.ic_checklist),
+                screen = Screen.Order
+            ),
+            NavigationItem(
+                title = stringResource(id = R.string.akun_saya),
+                icon = painterResource(id = R.drawable.ic_account),
+                screen = Screen.Profile
+            )
+        )
+
+        BottomNavigation(
+            backgroundColor = Color.White
+        ) {
+            val currentRoute = currentRoute(navHostController)
+
+            navigationItems.map { item ->
+                BottomNavigationItem(
+                    icon = {
+                        Icon(
+                            painter = item.icon,
+                            contentDescription = item.title,
+                            modifier = Modifier
+                                .size(24.dp)
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = item.title,
+                            style = PeklaTourTheme.typography.caption,
+                            fontSize = 11.sp
+                        )
+                    },
+                    selected = currentRoute == item.screen.route,
+                    onClick = {
+                        // Back First
+                        navHostController.navigate(item.screen.route) {
+                            popUpTo(navHostController.graph[Screen.Home.route].id) {
+                                saveState = true
+                            }
+                            restoreState = true
+                            launchSingleTop = true
+                        }
+                    },
+                    selectedContentColor = MaterialTheme.colors.primary,
+                    unselectedContentColor = black60
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun currentRoute(navHostController: NavHostController): String? {
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.route
+}

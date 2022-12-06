@@ -5,7 +5,7 @@ import android.view.View
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.LoginItem
-import id.co.egifcb.peklatour.peklatour.preferences.PreferencesUser
+import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.ui.main.MainActivity
 import id.co.egifcb.peklatour.peklatour.until.DialogLoading
 import id.co.egifcb.peklatour.peklatour.until.startActivity
