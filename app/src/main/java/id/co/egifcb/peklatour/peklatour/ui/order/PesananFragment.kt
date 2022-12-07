@@ -38,8 +38,6 @@ class PesananFragment : BaseFragment(), PesananView {
         textMesage = view.findViewById(R.id.text_message)
         swipeRefreshLayout = view.findViewById(R.id.swipeRefresh)
         recyclerView = view.findViewById(R.id.recyclerView)
-        val title = view.findViewById<TextView>(R.id.tv_title)
-        title.text = getString(R.string.pesanan)
 
         swipeRefresh.post {
             loadData()
