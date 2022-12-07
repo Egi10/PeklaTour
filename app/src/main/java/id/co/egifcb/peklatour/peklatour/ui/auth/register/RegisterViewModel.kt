@@ -1,13 +1,14 @@
-package id.co.egifcb.peklatour.peklatour.ui.auth.login
+package id.co.egifcb.peklatour.peklatour.ui.auth.register
 
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.co.egifcb.peklatour.peklatour.data.repository.auth.AuthRepository
-import id.co.egifcb.peklatour.peklatour.ui.auth.login.model.LoginEventState
-import id.co.egifcb.peklatour.peklatour.ui.auth.login.model.LoginUiState
+import id.co.egifcb.peklatour.peklatour.ui.auth.register.model.RegisterEventState
+import id.co.egifcb.peklatour.peklatour.ui.auth.register.model.RegisterUiState
 import id.co.egifcb.peklatour.peklatour.until.PeklaTourResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,45 +16,59 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LoginViewModel(
+class RegisterViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel() {
-    /**
-     * https://medium.com/androiddevelopers/effective-state-management-for-textfield-in-compose-d6e5b070fbe5
-     */
+
+    var name by mutableStateOf("")
+        private set
+
     var email by mutableStateOf("")
         private set
 
     var password by mutableStateOf("")
         private set
 
-    private val _uiState = MutableStateFlow(LoginUiState())
-    val uiState = _uiState.asStateFlow()
+    var confirmationPassword by mutableStateOf("")
+        private set
 
-    fun onEvent(event: LoginEventState) {
-        when (event) {
-            is LoginEventState.EmailOnChange -> {
+    val validConfirmationPassword by derivedStateOf {
+        password == confirmationPassword
+    }
+
+    private val _uiState = MutableStateFlow(RegisterUiState())
+    val uiState get() = _uiState.asStateFlow()
+
+    fun onEvent(event: RegisterEventState) {
+        when(event) {
+            is RegisterEventState.NameOnChange -> {
+                name = event.value
+            }
+
+            is RegisterEventState.EmailOnChange -> {
                 email = event.value
             }
 
-            is LoginEventState.PasswordOnChange -> {
+            is RegisterEventState.PasswordOnChange -> {
                 password = event.value
             }
 
-            is LoginEventState.Login -> {
-                login(
-                    email = email,
-                    password = password
-                )
+            is RegisterEventState.ConfirmationPasswordOnChange -> {
+                confirmationPassword = event.value
+            }
+
+            is RegisterEventState.Register -> {
+                register()
             }
         }
     }
 
-    private fun login(email: String, password: String) {
+    private fun register() {
         viewModelScope.launch {
-            authRepository.login(
+            authRepository.register(
                 email = email,
-                password = password
+                password = password,
+                name = name
             ).collectLatest {
                 when (it) {
                     is PeklaTourResult.Loading -> {

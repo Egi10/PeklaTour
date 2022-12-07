@@ -23,7 +23,7 @@ class AuthRepositoryImpl(
                 )
             )
         }.flatMapMerge {
-            it.login?.let { login ->
+            it.authResponse?.let { login ->
                 preferencesUser.createLogin(
                     no = login.no.toString(),
                     name = login.name,
@@ -32,7 +32,54 @@ class AuthRepositoryImpl(
             }
 
             return@flatMapMerge flow {
-                if (it.login == null) {
+                if (it.authResponse == null) {
+                    emit(
+                        PeklaTourResult.Error(
+                            it.message
+                        )
+                    )
+                } else {
+                    emit(
+                        PeklaTourResult.Success(
+                            Login(
+                                message = it.message
+                            )
+                        )
+                    )
+                }
+            }
+        }.onStart {
+            emit(PeklaTourResult.Loading)
+        }.catch {
+            fetchError(it)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    @OptIn(FlowPreview::class)
+    override fun register(
+        email: String,
+        password: String,
+        name: String
+    ): Flow<PeklaTourResult<Login>> {
+        return flow {
+            emit(
+                authRemoteDataSource.register(
+                    email = email,
+                    password = password,
+                    name = name
+                )
+            )
+        }.flatMapMerge {
+            it.authResponse?.let { login ->
+                preferencesUser.createLogin(
+                    no = login.no.toString(),
+                    name = login.name,
+                    email = login.name
+                )
+            }
+
+            return@flatMapMerge flow {
+                if (it.authResponse == null) {
                     emit(
                         PeklaTourResult.Error(
                             it.message

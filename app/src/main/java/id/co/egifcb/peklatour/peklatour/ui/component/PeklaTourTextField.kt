@@ -37,7 +37,7 @@ fun PeklaTourTextField(
             )
         },
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = Color.Unspecified
         ),
         trailingIcon = {
             if (isPassword) {

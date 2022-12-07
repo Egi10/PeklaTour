@@ -1,6 +1,5 @@
 package id.co.egifcb.peklatour.peklatour.di
 
-import id.co.egifcb.peklatour.peklatour.BuildConfig
 import id.co.egifcb.peklatour.peklatour.data.source.remote.auth.routes.AuthService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -37,7 +36,9 @@ fun configOkhttp(): OkHttpClient {
 
 fun configRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(
+            "${NetworkModule.BASE_URL}/${NetworkModule.DEPLOYMENT_ID}/"
+        )
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
@@ -45,4 +46,9 @@ fun configRetrofit(okHttpClient: OkHttpClient): Retrofit {
 
 fun configAuthService(retrofit: Retrofit): AuthService {
     return retrofit.create(AuthService::class.java)
+}
+
+private object NetworkModule {
+    const val BASE_URL = "https://script.google.com/macros/s"
+    const val DEPLOYMENT_ID = "AKfycbw3v1xyqHzzDv9ccgbqUTKuZFbMKUAFKuUXE4ZXTSuvM5sNCju0BiYtdLc_Btk55sP_uQ"
 }

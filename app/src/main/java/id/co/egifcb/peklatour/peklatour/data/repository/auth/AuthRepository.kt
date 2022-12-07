@@ -9,4 +9,10 @@ interface AuthRepository {
         email: String,
         password: String
     ): Flow<PeklaTourResult<Login>>
+
+    fun register(
+        email: String,
+        password: String,
+        name: String
+    ): Flow<PeklaTourResult<Login>>
 }

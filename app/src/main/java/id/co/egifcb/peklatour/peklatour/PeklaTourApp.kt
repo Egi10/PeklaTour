@@ -24,6 +24,7 @@ import androidx.navigation.get
 import id.co.egifcb.peklatour.peklatour.navigation.NavigationItem
 import id.co.egifcb.peklatour.peklatour.navigation.Screen
 import id.co.egifcb.peklatour.peklatour.ui.auth.login.LoginRoute
+import id.co.egifcb.peklatour.peklatour.ui.auth.register.RegisterRoute
 import id.co.egifcb.peklatour.peklatour.ui.home.HomeRoute
 import id.co.egifcb.peklatour.peklatour.ui.order.OrderRoute
 import id.co.egifcb.peklatour.peklatour.ui.profile.ProfileRoute
@@ -107,8 +108,22 @@ fun PeklaTourApp(
                                 launchSingleTop = true
                             }
                         },
-                        registerOnLogin = {
-
+                        registerOnClick = {
+                            navHostController.navigate(
+                                Screen.Register.route
+                            ) {
+                                launchSingleTop = true
+                            }
+                        },
+                        logoutOnClick = {
+                            navHostController.popBackStack()
+                            navHostController.navigate(
+                                Screen.Home.route
+                            ) {
+                                popUpTo(Screen.Profile.route) {
+                                    inclusive = true
+                                }
+                            }
                         }
                     )
                 }
@@ -119,6 +134,23 @@ fun PeklaTourApp(
                 ) {
                     LoginRoute(
                         onSuccessLogin = {
+                            navHostController.popBackStack()
+                            navHostController.navigate(
+                                Screen.Home.route
+                            ) {
+                                popUpTo(Screen.Profile.route) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    )
+                }
+
+                composable(
+                    route = Screen.Register.route
+                ) {
+                    RegisterRoute(
+                        onSuccessRegister = {
                             navHostController.popBackStack()
                             navHostController.navigate(
                                 Screen.Home.route
