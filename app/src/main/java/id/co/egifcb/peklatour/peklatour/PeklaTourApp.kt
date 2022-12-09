@@ -1,5 +1,7 @@
 package id.co.egifcb.peklatour.peklatour
 
+import android.content.Context
+import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,17 +12,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.get
+import androidx.navigation.navArgument
+import com.google.gson.Gson
+import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
 import id.co.egifcb.peklatour.peklatour.navigation.NavigationItem
 import id.co.egifcb.peklatour.peklatour.navigation.Screen
 import id.co.egifcb.peklatour.peklatour.ui.auth.login.LoginRoute
@@ -31,6 +38,7 @@ import id.co.egifcb.peklatour.peklatour.ui.profile.ProfileRoute
 import id.co.egifcb.peklatour.peklatour.ui.splashscreen.SplashRoute
 import id.co.egifcb.peklatour.peklatour.ui.theme.PeklaTourTheme
 import id.co.egifcb.peklatour.peklatour.ui.theme.black60
+import id.co.egifcb.peklatour.peklatour.ui.ticket.TicketRoute
 
 @Composable
 fun PeklaTourApp(
@@ -46,9 +54,12 @@ fun PeklaTourApp(
                     navHostController = navHostController
                 )
             } else if (currentRoute != Screen.Splash.route) {
+                val context = LocalContext.current
+
                 TopBarContent(
                     title = titleTopAppBar(
-                        route = currentRoute.toString()
+                        route = currentRoute.toString(),
+                        context = context
                     ),
                     navigationOnClick = {
                         navHostController.navigateUp()
@@ -94,7 +105,14 @@ fun PeklaTourApp(
                 composable(
                     route = Screen.Order.route
                 ) {
-                    OrderRoute()
+                    OrderRoute(
+                        detailOnClick = { order ->
+                            val json = Uri.encode(Gson().toJson(order))
+                            navHostController.navigate(
+                                "detail/$json"
+                            )
+                        }
+                    )
                 }
 
                 composable(
@@ -162,6 +180,23 @@ fun PeklaTourApp(
                         }
                     )
                 }
+
+                // Detail Order
+                composable(
+                    route = Screen.DetailOrder.route,
+                    arguments = listOf(
+                        navArgument("order") {
+                            type = NavType.StringType
+                        }
+                    )
+                ) { backStack ->
+                    val value = backStack.arguments?.getString("order")
+                    val order = Gson().fromJson(value, Order::class.java)
+
+                    TicketRoute(
+                        order = order
+                    )
+                }
             }
         }
     )
@@ -173,8 +208,9 @@ private val routeBottomBar = listOf(
     Screen.Profile.route
 )
 
-private fun titleTopAppBar(route: String) = when (route) {
-    Screen.Login.route -> "Masuk Pekla Tour"
+private fun titleTopAppBar(context: Context, route: String) = when (route) {
+    Screen.Login.route -> context.getString(R.string.login_pekla_tour)
+    Screen.DetailOrder.route -> context.getString(R.string.ticket_tour)
     else -> "Belum Ada"
 }
 
@@ -294,7 +330,7 @@ private fun BottomBar(
                         // Back First
                         navHostController.navigate(item.screen.route) {
                             popUpTo(navHostController.graph[Screen.Home.route].id) {
-                                saveState = true
+                                saveState = false
                             }
                             restoreState = true
                             launchSingleTop = true

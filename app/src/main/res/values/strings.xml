@@ -48,4 +48,13 @@
     <string name="durasitour">Durasi Tour\n%1$s</string>
     <string name="testing">testing\nayo</string>
     <string name="keluar_dari_akun_anda">Keluar dari akun anda</string>
+    <string name="message_show_order_not_login">Untuk melihat Pesanan Anda Harus Login Dulu</string>
+    <string name="message_please_wait_order">Mohon Menunggu, kami masih melakukan proses pesanan Anda</string>
+    <string name="message_not_process_order">Mohon Maaf, kami belum bisa melakukan proses pesanan Anda</string>
+    <string name="order_no">No Pesanan</string>
+    <string name="tour_fee">Biaya Tour</string>
+    <string name="total_passenger">Jumlah Penumpang</string>
+    <string name="tour_duration">Durasi Tour</string>
+    <string name="login_pekla_tour">Masuk Pekla Tour</string>
+    <string name="ticket_tour">Tiket Tour</string>
 </resources>

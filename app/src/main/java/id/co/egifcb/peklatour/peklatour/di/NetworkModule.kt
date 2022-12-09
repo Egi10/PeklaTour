@@ -1,6 +1,7 @@
 package id.co.egifcb.peklatour.peklatour.di
 
 import id.co.egifcb.peklatour.peklatour.data.source.remote.auth.routes.AuthService
+import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.routes.TourService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -19,6 +20,10 @@ val networkModule = module {
 
     single {
         configAuthService(get())
+    }
+
+    single {
+        configTourService(get())
     }
 }
 
@@ -46,6 +51,10 @@ fun configRetrofit(okHttpClient: OkHttpClient): Retrofit {
 
 fun configAuthService(retrofit: Retrofit): AuthService {
     return retrofit.create(AuthService::class.java)
+}
+
+fun configTourService(retrofit: Retrofit): TourService {
+    return retrofit.create(TourService::class.java)
 }
 
 private object NetworkModule {
