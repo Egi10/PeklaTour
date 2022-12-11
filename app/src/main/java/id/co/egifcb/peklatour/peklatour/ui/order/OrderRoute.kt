@@ -10,6 +10,7 @@ import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourAlertDialog
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourEmpty
+import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourError
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourLoading
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,6 +66,15 @@ fun OrderRoute(
         PeklaTourEmpty(
             imageId = R.drawable.ic_caravan,
             title = stringResource(id = R.string.message_show_order_not_login)
+        )
+    }
+
+    if (uiState.value.isError) {
+        PeklaTourError(
+            message = uiState.value.error,
+            onClick = {
+                viewModel.getOrder()
+            }
         )
     }
 

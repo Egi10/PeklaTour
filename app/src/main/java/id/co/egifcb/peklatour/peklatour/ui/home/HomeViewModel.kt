@@ -30,7 +30,8 @@ class HomeViewModel(
                             _uiState.update { state ->
                                 state.copy(
                                     loading = true,
-                                    isSuccess = false
+                                    isSuccess = false,
+                                    isError = false
                                 )
                             }
                         }
@@ -40,6 +41,7 @@ class HomeViewModel(
                                 state.copy(
                                     loading = false,
                                     isSuccess = true,
+                                    isError = false,
                                     promo = it.data.promo,
                                     tourType = it.data.tourType,
                                     destinationFavorite = it.data.destinationFavorite
@@ -52,6 +54,7 @@ class HomeViewModel(
                                 state.copy(
                                     loading = false,
                                     isSuccess = false,
+                                    isError = true,
                                     error = it.exception ?: "Error"
                                 )
                             }

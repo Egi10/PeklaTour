@@ -41,7 +41,8 @@ class OrderViewModel(
                             _uiState.update { state ->
                                 state.copy(
                                     isLoading = true,
-                                    isSuccess = false
+                                    isSuccess = false,
+                                    isError = false
                                 )
                             }
                         }
@@ -52,7 +53,8 @@ class OrderViewModel(
                                     state.copy(
                                         isLoading = false,
                                         isEmpty = false,
-                                        isSuccess = false
+                                        isSuccess = false,
+                                        isError = false
                                     )
                                 }
                             } else {
@@ -61,7 +63,8 @@ class OrderViewModel(
                                         isLoading = false,
                                         order = it.data,
                                         isEmpty = false,
-                                        isSuccess = true
+                                        isSuccess = true,
+                                        isError = false
                                     )
                                 }
                             }
@@ -72,7 +75,8 @@ class OrderViewModel(
                                 state.copy(
                                     isLoading = false,
                                     error = it.exception ?: "Error",
-                                    isSuccess = false
+                                    isSuccess = false,
+                                    isError = true
                                 )
                             }
                         }

@@ -57,4 +57,5 @@
     <string name="tour_duration">Durasi Tour</string>
     <string name="login_pekla_tour">Masuk Pekla Tour</string>
     <string name="ticket_tour">Tiket Tour</string>
+    <string name="retry">Ulangi</string>
 </resources>
