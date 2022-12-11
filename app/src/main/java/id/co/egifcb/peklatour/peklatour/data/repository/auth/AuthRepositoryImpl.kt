@@ -5,13 +5,15 @@ import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.data.source.remote.auth.AuthRemoteDataSource
 import id.co.egifcb.peklatour.peklatour.until.PeklaTourResult
 import id.co.egifcb.peklatour.peklatour.until.fetchError
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 
 class AuthRepositoryImpl(
     private val authRemoteDataSource: AuthRemoteDataSource,
-    private val preferencesUser: PreferencesUser
+    private val preferencesUser: PreferencesUser,
+    private val dispatcher: CoroutineDispatcher
 ) : AuthRepository {
     @OptIn(FlowPreview::class)
     override fun login(email: String, password: String): Flow<PeklaTourResult<Login>> {
@@ -52,7 +54,7 @@ class AuthRepositoryImpl(
             emit(PeklaTourResult.Loading)
         }.catch {
             fetchError(it)
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher)
     }
 
     @OptIn(FlowPreview::class)
@@ -99,6 +101,6 @@ class AuthRepositoryImpl(
             emit(PeklaTourResult.Loading)
         }.catch {
             fetchError(it)
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(dispatcher)
     }
 }

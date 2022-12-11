@@ -7,7 +7,7 @@ import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.TourRemoteDataSource
 import id.co.egifcb.peklatour.peklatour.until.PeklaTourResult
 import id.co.egifcb.peklatour.peklatour.until.asResult
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.map
 
 class TourRepositoryImpl(
     private val tourRemoteDataSource: TourRemoteDataSource,
-    private val preferencesUser: PreferencesUser
+    private val preferencesUser: PreferencesUser,
+    private val dispatcher: CoroutineDispatcher
 ) : TourRepository {
     override fun getOrder(): Flow<PeklaTourResult<List<Order>>> {
         return flow {
@@ -35,7 +36,7 @@ class TourRepositoryImpl(
             }
         }.map {
             it.mapping()
-        }.asResult()
+        }.asResult().flowOn(dispatcher)
     }
 
     override fun getHome(): Flow<PeklaTourResult<Home>> {
@@ -51,7 +52,7 @@ class TourRepositoryImpl(
             )
         }.map {
             it.mapping()
-        }.asResult().flowOn(Dispatchers.IO)
+        }.asResult().flowOn(dispatcher)
     }
 
 
