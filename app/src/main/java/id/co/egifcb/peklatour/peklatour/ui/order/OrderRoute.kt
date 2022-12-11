@@ -8,9 +8,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
-import id.co.egifcb.peklatour.peklatour.navigation.Screen
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourAlertDialog
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourEmpty
+import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourLoading
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -27,27 +27,32 @@ fun OrderRoute(
     }
     val context = LocalContext.current
 
-    OrderScreen(
-        order = uiState.value.order,
-        orderOnClick = {
-            when (it.orderStatus) {
-                "Pengajuan" -> {
-                    messageDialog.value = context.getString(R.string.message_please_wait_order)
-                    openDialog.value = true
-                }
+    if (uiState.value.isLoading) {
+        PeklaTourLoading()
+    }
 
-                "Pengajuan Ditolak" -> {
-                    messageDialog.value = context.getString(R.string.message_not_process_order)
-                    openDialog.value = true
-                }
+    if (uiState.value.isSuccess) {
+        OrderScreen(
+            order = uiState.value.order,
+            orderOnClick = {
+                when (it.orderStatus) {
+                    "Pengajuan" -> {
+                        messageDialog.value = context.getString(R.string.message_please_wait_order)
+                        openDialog.value = true
+                    }
 
-                else -> {
-                    detailOnClick.invoke(it)
+                    "Pengajuan Ditolak" -> {
+                        messageDialog.value = context.getString(R.string.message_not_process_order)
+                        openDialog.value = true
+                    }
+
+                    else -> {
+                        detailOnClick.invoke(it)
+                    }
                 }
             }
-        },
-        loading = uiState.value.isLoading
-    )
+        )
+    }
 
     if (uiState.value.isEmpty) {
         PeklaTourEmpty(
@@ -59,7 +64,7 @@ fun OrderRoute(
     if (!uiState.value.isLogin) {
         PeklaTourEmpty(
             imageId = R.drawable.ic_caravan,
-            title = stringResource(R.string.message_show_order_not_login)
+            title = stringResource(id = R.string.message_show_order_not_login)
         )
     }
 

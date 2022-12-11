@@ -1,6 +1,6 @@
 package id.co.egifcb.peklatour.peklatour.data.repository.tour.model
 
-import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.OrderListResponse
+import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.OrderResponse
 
 data class Order(
     val tourFee: Int,
@@ -14,7 +14,7 @@ data class Order(
     val destinationTour: String
 )
 
-fun List<OrderListResponse>.mapping(): List<Order> {
+fun List<OrderResponse>.mapping(): List<Order> {
     val list: MutableList<Order> = mutableListOf()
 
     this.forEach {

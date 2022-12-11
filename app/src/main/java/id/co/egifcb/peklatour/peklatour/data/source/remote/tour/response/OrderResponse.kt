@@ -4,11 +4,6 @@ package id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response
 import com.google.gson.annotations.SerializedName
 
 data class OrderResponse(
-    @SerializedName("daftarpesanan")
-    val orderListResponse: List<OrderListResponse>
-)
-
-data class OrderListResponse(
     @SerializedName("biaya_tour")
     val tourFee: Int,
     @SerializedName("durasi_tour")

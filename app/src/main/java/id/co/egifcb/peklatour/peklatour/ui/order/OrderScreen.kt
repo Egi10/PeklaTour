@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourCard
+import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourLoading
 import id.co.egifcb.peklatour.peklatour.ui.theme.PeklaTourTheme
 import id.co.egifcb.peklatour.peklatour.until.formatRupiah
 
@@ -29,24 +29,12 @@ fun OrderScreen(
     order: List<Order>,
     orderOnClick: (Order) -> Unit,
     modifier: Modifier = Modifier,
-    loading: Boolean = false,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (loading) {
-            Spacer(
-                modifier = Modifier
-                    .padding(
-                        top = 16.dp
-                    )
-            )
-
-            CircularProgressIndicator()
-        }
-
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -179,7 +167,6 @@ private fun OrderScreenPreview() {
         OrderScreen(
             order = listOf(),
             orderOnClick = {},
-            loading = true
         )
     }
 }

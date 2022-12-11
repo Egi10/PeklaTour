@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
-import id.co.egifcb.peklatour.peklatour.ui.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -44,7 +43,6 @@ class MainActivity : BaseActivity() {
     private fun loadFragment(itemId: Int) {
         when (itemId) {
             R.id.navigation_home -> {
-                fragment = HomeFragment()
                 viewIsAtHome = true
             }
 

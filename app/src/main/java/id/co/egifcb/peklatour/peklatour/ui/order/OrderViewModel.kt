@@ -40,7 +40,8 @@ class OrderViewModel(
                         is PeklaTourResult.Loading -> {
                             _uiState.update { state ->
                                 state.copy(
-                                    isLoading = true
+                                    isLoading = true,
+                                    isSuccess = false
                                 )
                             }
                         }
@@ -50,7 +51,8 @@ class OrderViewModel(
                                 _uiState.update { state ->
                                     state.copy(
                                         isLoading = false,
-                                        isEmpty = false
+                                        isEmpty = false,
+                                        isSuccess = false
                                     )
                                 }
                             } else {
@@ -58,7 +60,8 @@ class OrderViewModel(
                                     state.copy(
                                         isLoading = false,
                                         order = it.data,
-                                        isEmpty = false
+                                        isEmpty = false,
+                                        isSuccess = true
                                     )
                                 }
                             }
@@ -68,7 +71,8 @@ class OrderViewModel(
                             _uiState.update { state ->
                                 state.copy(
                                     isLoading = false,
-                                    error = it.exception ?: "Error"
+                                    error = it.exception ?: "Error",
+                                    isSuccess = false
                                 )
                             }
                         }

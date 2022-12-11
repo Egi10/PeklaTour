@@ -59,5 +59,5 @@ fun configTourService(retrofit: Retrofit): TourService {
 
 private object NetworkModule {
     const val BASE_URL = "https://script.google.com/macros/s"
-    const val DEPLOYMENT_ID = "AKfycbw3v1xyqHzzDv9ccgbqUTKuZFbMKUAFKuUXE4ZXTSuvM5sNCju0BiYtdLc_Btk55sP_uQ"
+    const val DEPLOYMENT_ID = "AKfycbwV7BEjPNeEZmJcofUPcPUV-_CRLgq4TR89W_ftKjvVSRdEkh_1qBtwnQaOvgJ3BqJTdg"
 }
