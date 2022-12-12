@@ -64,17 +64,17 @@ fun ProfileRoute(
             )
         }
 
-        TextButton(
-            onClick = {
-                developerInfoOnClick.invoke()
-            },
-            modifier = Modifier
-                .semantics {
-                    contentDescription = "about_page"
-                }
-        ) {
-            Text(text = stringResource(R.string.developer_info))
-        }
+//        TextButton(
+//            onClick = {
+//                developerInfoOnClick.invoke()
+//            },
+//            modifier = Modifier
+//                .semantics {
+//                    contentDescription = "about_page"
+//                }
+//        ) {
+//            Text(text = stringResource(R.string.developer_info))
+//        }
 
         Spacer(
             modifier = Modifier
