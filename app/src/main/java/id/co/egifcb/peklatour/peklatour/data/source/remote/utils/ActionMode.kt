@@ -6,5 +6,6 @@ enum class ActionMode(val value: String) {
     ORDER("daftarpesanan"),
     TOUR_TYPE("jenistour"),
     DESTINATION_FAVORITE("destinasifavorite"),
-    PROMO_TOUR("promotour")
+    PROMO_TOUR("promotour"),
+    TOUR_LIST("daftartour")
 }

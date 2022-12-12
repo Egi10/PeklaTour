@@ -1,10 +1,9 @@
-package id.co.egifcb.peklatour.peklatour.ui.order
+package id.co.egifcb.peklatour.peklatour.ui.listtour
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.TourRepository
-import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
-import id.co.egifcb.peklatour.peklatour.ui.order.model.OrderUiState
+import id.co.egifcb.peklatour.peklatour.ui.listtour.model.TourListUiState
 import id.co.egifcb.peklatour.peklatour.until.PeklaTourResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,29 +11,16 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class OrderViewModel(
-    private val tourRepository: TourRepository,
-    private val preferencesUser: PreferencesUser
+class ListTourViewModel(
+    private val tourRepository: TourRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(OrderUiState())
-    val uiState = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(TourListUiState())
+    val uiState get() = _uiState.asStateFlow()
 
-    init {
-        _uiState.update {
-            it.copy(
-                isLogin = preferencesUser.isLoggedIn()
-            )
-        }
-
-        if (preferencesUser.isLoggedIn()) {
-            getOrder()
-        }
-    }
-
-    fun getOrder() {
+    fun getListTour(tourType: String) {
         viewModelScope.launch {
-            tourRepository.getOrder()
+            tourRepository.getTourList(typeTour = tourType)
                 .collectLatest {
                     when (it) {
                         is PeklaTourResult.Loading -> {
@@ -42,19 +28,21 @@ class OrderViewModel(
                                 state.copy(
                                     isLoading = true,
                                     isSuccess = false,
-                                    isError = false
+                                    isError = false,
+                                    isEmpty = false
                                 )
                             }
                         }
 
                         is PeklaTourResult.Success -> {
+
                             _uiState.update { state ->
                                 state.copy(
                                     isLoading = false,
-                                    order = it.data,
-                                    isEmpty = it.data.isEmpty(),
                                     isSuccess = true,
-                                    isError = false
+                                    isError = false,
+                                    isEmpty = it.data.isEmpty(),
+                                    listTour = it.data
                                 )
                             }
                         }
@@ -63,9 +51,10 @@ class OrderViewModel(
                             _uiState.update { state ->
                                 state.copy(
                                     isLoading = false,
-                                    error = it.exception ?: "Error",
                                     isSuccess = false,
-                                    isError = true
+                                    isError = true,
+                                    isEmpty = false,
+                                    messageError = it.exception ?: "Error"
                                 )
                             }
                         }

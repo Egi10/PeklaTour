@@ -58,4 +58,6 @@
     <string name="login_pekla_tour">Masuk Pekla Tour</string>
     <string name="ticket_tour">Tiket Tour</string>
     <string name="retry">Ulangi</string>
+    <string name="message_empty_list_tour">Maaf untuk saat ini belum ada Tour dengan tipe %s ini, Anda bisa coba yang lain</string>
+    <string name="list_tour">Daftar Tour</string>
 </resources>

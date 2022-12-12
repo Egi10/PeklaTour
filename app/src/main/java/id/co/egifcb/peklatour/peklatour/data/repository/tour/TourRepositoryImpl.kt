@@ -2,16 +2,14 @@ package id.co.egifcb.peklatour.peklatour.data.repository.tour
 
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Home
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
+import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.TourList
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.mapping
 import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
 import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.TourRemoteDataSource
 import id.co.egifcb.peklatour.peklatour.until.PeklaTourResult
 import id.co.egifcb.peklatour.peklatour.until.asResult
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 class TourRepositoryImpl(
     private val tourRemoteDataSource: TourRemoteDataSource,
@@ -55,5 +53,17 @@ class TourRepositoryImpl(
         }.asResult().flowOn(dispatcher)
     }
 
-
+    override fun getTourList(typeTour: String): Flow<PeklaTourResult<List<TourList>>> {
+        return flow {
+            emit(
+                tourRemoteDataSource.getTourList()
+            )
+        }.map {
+            it.mapping()
+        }.map {
+            it.filter { tour ->
+                tour.typePlace == typeTour
+            }
+        }.asResult().flowOn(dispatcher)
+    }
 }

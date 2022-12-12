@@ -33,6 +33,7 @@ import id.co.egifcb.peklatour.peklatour.navigation.Screen
 import id.co.egifcb.peklatour.peklatour.ui.auth.login.LoginRoute
 import id.co.egifcb.peklatour.peklatour.ui.auth.register.RegisterRoute
 import id.co.egifcb.peklatour.peklatour.ui.home.HomeRoute
+import id.co.egifcb.peklatour.peklatour.ui.listtour.ListTourRoute
 import id.co.egifcb.peklatour.peklatour.ui.order.OrderRoute
 import id.co.egifcb.peklatour.peklatour.ui.profile.ProfileRoute
 import id.co.egifcb.peklatour.peklatour.ui.splashscreen.SplashRoute
@@ -99,7 +100,13 @@ fun PeklaTourApp(
                 composable(
                     route = Screen.Home.route
                 ) {
-                    HomeRoute()
+                    HomeRoute(
+                        onTourTypeClick = { tour ->
+                            navHostController.navigate(
+                                "listTour/${tour.typeOfTravel}"
+                            )
+                        }
+                    )
                 }
 
                 composable(
@@ -197,6 +204,26 @@ fun PeklaTourApp(
                         order = order
                     )
                 }
+
+                // ListTour
+                composable(
+                    route = Screen.ListTour.route,
+                    arguments = listOf(
+                        navArgument("type") {
+                            type = NavType.StringType
+                            defaultValue = ""
+                        }
+                    )
+                ) { backStack ->
+                    val value = backStack.arguments?.getString("type") ?: ""
+
+                    ListTourRoute(
+                        tourType = value,
+                        onItemClick = {
+                            // TODO Detail
+                        }
+                    )
+                }
             }
         }
     )
@@ -211,6 +238,7 @@ private val routeBottomBar = listOf(
 private fun titleTopAppBar(context: Context, route: String) = when (route) {
     Screen.Login.route -> context.getString(R.string.login_pekla_tour)
     Screen.DetailOrder.route -> context.getString(R.string.ticket_tour)
+    Screen.ListTour.route -> context.getString(R.string.list_tour)
     else -> "Belum Ada"
 }
 

@@ -1,13 +1,13 @@
 package id.co.egifcb.peklatour.peklatour.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,93 +32,126 @@ fun HomeScreen(
     promo: List<Promo>,
     destinationFavorite: List<DestinationFavorite>,
     tourType: List<TourType>,
+    onTourTypeClick: (TourType) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement
-            .spacedBy(20.dp)
-    ) {
-        // TODO Change to Slider
-        AsyncImage(
-            model = promo[0].image,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            placeholder = painterResource(id = R.drawable.no_image),
-            error = painterResource(id = R.drawable.no_image),
-            modifier = Modifier
-                .fillMaxWidth()
-                // Aspect Ratio 1:0.6 = 1 / 0.6 = 1.66
-                .aspectRatio(
-                    ratio = 1.66f
-                )
-        )
+    val gridSpan = 3
 
-        TextHeader(
-            text = stringResource(id = R.string.pilih_tour_mu),
-            content = {
-                LazyVerticalGrid(
+    LazyVerticalGrid(
+        modifier = modifier
+            .fillMaxHeight(),
+        columns = GridCells.Fixed(gridSpan),
+        content = {
+            item(
+                span = {
+                    GridItemSpan(gridSpan)
+                }
+            ) {
+                AsyncImage(
+                    model = promo[0].image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    placeholder = painterResource(id = R.drawable.no_image),
+                    error = painterResource(id = R.drawable.no_image),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(220.dp),
-                    columns = GridCells
-                        .Fixed(3),
-                    userScrollEnabled = false,
-                    contentPadding = PaddingValues(
-                        start = 5.dp,
-                        end = 5.dp
-                    ),
-                    content = {
-                        items(tourType) {
-                            ListItemTourType(
-                                image = it.image,
-                                typeOfTravel = it.typeOfTravel
-                            )
-                        }
-                    }
+                        // Aspect Ratio 1:0.6 = 1 / 0.6 = 1.66
+                        .aspectRatio(
+                            ratio = 1.66f
+                        )
                 )
             }
-        )
-
-        TextHeader(
-            text = stringResource(id = R.string.tour_favorite),
-            content = {
-                LazyRow(
+            item(
+                span = {
+                    GridItemSpan(gridSpan)
+                }
+            ) {
+                TextHeader(
+                    text = stringResource(id = R.string.pilih_tour_mu),
                     modifier = Modifier
-                        .fillMaxWidth(),
-                    contentPadding = PaddingValues(
-                        start = 5.dp,
-                        end = 5.dp,
-                        bottom = 5.dp
-                    ),
-                    content = {
-                        items(destinationFavorite) {
-                            ListItemDestinationFavorite(
-                                image = it.image,
-                                placeName = it.placeName,
-                                lengthOfJourney = it.lengthOfJourney,
-                                modifier = Modifier
-                                    .fillParentMaxWidth(0.8f)
-                                    // Aspect Ratio 1:0.6 = 1 / 0.6 = 1.66
-                                    .aspectRatio(
-                                        ratio = 1.66f
-                                    )
-                            )
-                        }
+                        .padding(top = 20.dp)
+                )
+            }
+
+            items(
+                tourType,
+                key = {
+                    it.no
+                }
+            ) {
+                ListItemTourType(
+                    image = it.image,
+                    typeOfTravel = it.typeOfTravel,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(ratio = 1f),
+                    onClick = {
+                        onTourTypeClick.invoke(it)
                     }
                 )
             }
-        )
-    }
+
+            item(
+                span = {
+                    GridItemSpan(gridSpan)
+                }
+            ) {
+                TextHeader(
+                    modifier = Modifier
+                        .padding(top = 20.dp),
+                    text = stringResource(id = R.string.tour_favorite),
+                    content = {
+                        DestinationFavorite(
+                            destinationFavorite = destinationFavorite
+                        )
+                    }
+                )
+            }
+        }
+    )
 }
 
 @Composable
-fun TextHeader(
-    text: String,
-    content: @Composable ColumnScope.() -> Unit,
+private fun DestinationFavorite(
+    destinationFavorite: List<DestinationFavorite>,
     modifier: Modifier = Modifier
+) {
+    LazyRow(
+        modifier = modifier
+            .fillMaxWidth(),
+        contentPadding = PaddingValues(
+            start = 5.dp,
+            end = 5.dp,
+            bottom = 5.dp
+        ),
+        content = {
+            items(
+                destinationFavorite,
+                key = {
+                    it.no
+                }
+            ) {
+                ListItemDestinationFavorite(
+                    image = it.image,
+                    placeName = it.placeName,
+                    lengthOfJourney = it.lengthOfJourney,
+                    modifier = Modifier
+                        .fillParentMaxWidth(0.8f)
+                        // Aspect Ratio 1:0.6 = 1 / 0.6 = 1.66
+                        .aspectRatio(
+                            ratio = 1.66f
+                        )
+                )
+            }
+        }
+    )
+}
+
+@Composable
+private fun TextHeader(
+    text: String,
+    modifier: Modifier = Modifier,
+    content: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier
@@ -138,7 +171,7 @@ fun TextHeader(
                 )
         )
 
-        content.invoke(this)
+        content?.invoke(this)
     }
 }
 
@@ -146,6 +179,7 @@ fun TextHeader(
 private fun ListItemTourType(
     image: String,
     typeOfTravel: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     PeklaTourCard(
@@ -153,7 +187,9 @@ private fun ListItemTourType(
             .padding(
                 all = 5.dp
             )
-            .size(100.dp)
+            .clickable {
+                onClick.invoke()
+            },
     ) {
         Box(
             contentAlignment = Alignment.Center,

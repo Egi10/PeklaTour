@@ -17,9 +17,9 @@ import id.co.egifcb.peklatour.peklatour.R
 
 @Composable
 fun PeklaTourEmpty(
-    @DrawableRes imageId: Int,
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    @DrawableRes imageId: Int = R.drawable.ic_caravan,
 ) {
     Column(
         modifier = modifier

@@ -1,9 +1,6 @@
 package id.co.egifcb.peklatour.peklatour.data.source.remote.tour
 
-import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.DestinationFavoriteResponse
-import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.OrderResponse
-import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.PromoTourResponse
-import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.TourTypeResponse
+import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.response.*
 import id.co.egifcb.peklatour.peklatour.data.source.remote.tour.routes.TourService
 
 class TourRemoteDataSourceImpl(
@@ -25,5 +22,9 @@ class TourRemoteDataSourceImpl(
 
     override suspend fun getPromo(): List<PromoTourResponse> {
         return tourService.getPromoTour().data
+    }
+
+    override suspend fun getTourList(): List<TourListResponse> {
+        return tourService.getTourList().data
     }
 }

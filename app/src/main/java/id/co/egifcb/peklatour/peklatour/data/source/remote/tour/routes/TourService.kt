@@ -25,4 +25,9 @@ interface TourService {
     suspend fun getPromoTour(
         @Query("action") action: String = ActionMode.PROMO_TOUR.value
     ): BaseResponse<PromoTourResponse>
+
+    @GET("exec")
+    suspend fun getTourList(
+        @Query("action") action: String = ActionMode.TOUR_LIST.value
+    ): BaseResponse<TourListResponse>
 }

@@ -12,7 +12,8 @@ fun Triple<List<PromoTourResponse>, List<TourTypeResponse>, List<DestinationFavo
     this.first.forEach {
         promo.add(
             Promo(
-                image = it.image
+                image = it.image,
+                no = it.no
             )
         )
     }
@@ -21,7 +22,8 @@ fun Triple<List<PromoTourResponse>, List<TourTypeResponse>, List<DestinationFavo
         tourType.add(
             TourType(
                 image = it.image,
-                typeOfTravel = it.typeOfTravel
+                typeOfTravel = it.typeOfTravel,
+                no = it.no
             )
         )
     }
@@ -31,7 +33,8 @@ fun Triple<List<PromoTourResponse>, List<TourTypeResponse>, List<DestinationFavo
             DestinationFavorite(
                 image = it.image,
                 placeName = it.placeName,
-                lengthOfJourney = it.lengthOfJourney
+                lengthOfJourney = it.lengthOfJourney,
+                no = it.no
             )
         )
     }

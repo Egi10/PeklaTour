@@ -22,20 +22,12 @@
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ui.daftartour.DaftarTourActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.main.MainActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.pesantour.PesanTourActivity"
             android:exported="true">
             <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.daftartour.DaftarTourActivity" />
+                android:name="android.support.PARENT_ACTIVITY" />
         </activity>
 
         <activity

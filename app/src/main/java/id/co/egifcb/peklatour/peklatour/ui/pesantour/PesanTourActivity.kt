@@ -11,7 +11,6 @@ import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.base.BaseActivity
 import id.co.egifcb.peklatour.peklatour.model.DaftartourItem
 import id.co.egifcb.peklatour.peklatour.data.source.local.PreferencesUser
-import id.co.egifcb.peklatour.peklatour.ui.daftartour.DaftarTourActivity
 import id.co.egifcb.peklatour.peklatour.until.*
 import kotlinx.android.synthetic.main.activity_pesan_tour.*
 import java.text.SimpleDateFormat
@@ -199,24 +198,4 @@ class PesanTourActivity : BaseActivity(), View.OnClickListener, PesanTourView {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                startActivity<DaftarTourActivity> {
-                    putExtra("jenis_tempat", items.jenisTempat)
-                }
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            startActivity<DaftarTourActivity> {
-                putExtra("jenis_tempat", items.jenisTempat)
-            }
-        }
-        return super.onKeyDown(keyCode, event)
-    }
 }

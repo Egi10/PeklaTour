@@ -7,16 +7,19 @@ data class Home(
 )
 
 data class TourType(
+    val no: Int,
     val image: String,
     val typeOfTravel: String
 )
 
 data class DestinationFavorite(
+    val no: Int,
     val image: String,
     val placeName: String,
     val lengthOfJourney: String
 )
 
 data class Promo(
+    val no: Int,
     val image: String
 )
