@@ -64,6 +64,7 @@ fun RegisterRoute(
                 event = RegisterEventState.Register
             )
         },
-        loading = uiState.value.loading
+        loading = uiState.value.loading,
+        enableRegister = viewModel.validRegister
     )
 }

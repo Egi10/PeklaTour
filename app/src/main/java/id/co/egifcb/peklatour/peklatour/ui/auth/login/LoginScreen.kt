@@ -19,6 +19,7 @@ fun LoginScreen(
     onPasswordChange: (String) -> Unit,
     onClickLogin: () -> Unit,
     loading: Boolean,
+    enableLogin: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -45,7 +46,8 @@ fun LoginScreen(
         PeklaTourButton(
             text = stringResource(id = R.string.masuk_sekarang),
             onClick = onClickLogin,
-            loading = loading
+            loading = loading,
+            enabled = enableLogin
         )
     }
 }

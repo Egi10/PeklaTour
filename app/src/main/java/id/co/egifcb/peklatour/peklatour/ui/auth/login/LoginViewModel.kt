@@ -1,5 +1,7 @@
 package id.co.egifcb.peklatour.peklatour.ui.auth.login
 
+import android.util.Patterns
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -26,6 +28,10 @@ class LoginViewModel(
 
     var password by mutableStateOf("")
         private set
+
+    val validLogin by derivedStateOf {
+        Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.isNotEmpty()
+    }
 
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState = _uiState.asStateFlow()

@@ -1,5 +1,6 @@
 package id.co.egifcb.peklatour.peklatour.ui.auth.register
 
+import android.util.Patterns
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,15 +33,18 @@ class RegisterViewModel(
     var confirmationPassword by mutableStateOf("")
         private set
 
-    val validConfirmationPassword by derivedStateOf {
-        password == confirmationPassword
+    val validRegister by derivedStateOf {
+        Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+                name.isNotEmpty() &&
+                password.isNotEmpty() &&
+                password == confirmationPassword
     }
 
     private val _uiState = MutableStateFlow(RegisterUiState())
     val uiState get() = _uiState.asStateFlow()
 
     fun onEvent(event: RegisterEventState) {
-        when(event) {
+        when (event) {
             is RegisterEventState.NameOnChange -> {
                 name = event.value
             }

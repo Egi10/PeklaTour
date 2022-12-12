@@ -20,6 +20,7 @@ fun PeklaTourButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     loading: Boolean = false,
+    enabled: Boolean = true,
     shape: Shape = MaterialTheme.shapes.small,
 ) {
     Button(
@@ -29,7 +30,8 @@ fun PeklaTourButton(
         ),
         modifier = modifier
             .fillMaxWidth(),
-        shape = shape
+        shape = shape,
+        enabled = enabled
     ) {
         Box {
             if (loading) {

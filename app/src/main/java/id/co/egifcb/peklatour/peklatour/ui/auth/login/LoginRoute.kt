@@ -52,6 +52,7 @@ fun LoginRoute(
                 event = LoginEventState.Login
             )
         },
-        loading = uiState.value.loading
+        loading = uiState.value.loading,
+        enableLogin = viewModel.validLogin
     )
 }

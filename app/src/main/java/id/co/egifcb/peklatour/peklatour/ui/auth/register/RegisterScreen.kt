@@ -25,6 +25,7 @@ fun RegisterScreen(
     onConfirmationPasswordChange: (String) -> Unit,
     registerOnClick: () -> Unit,
     loading: Boolean,
+    enableRegister: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -64,7 +65,8 @@ fun RegisterScreen(
         PeklaTourButton(
             text = stringResource(id = R.string.daftar_sekarang),
             onClick = registerOnClick,
-            loading = loading
+            loading = loading,
+            enabled = enableRegister
         )
     }
 }
@@ -86,7 +88,8 @@ fun RegisterScreenPreview() {
             confirmationPassword = "",
             onConfirmationPasswordChange = {},
             registerOnClick = {},
-            loading = false
+            loading = false,
+            enableRegister = false
         )
     }
 }
