@@ -28,12 +28,14 @@ import androidx.navigation.get
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
+import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.TourList
 import id.co.egifcb.peklatour.peklatour.navigation.NavigationItem
 import id.co.egifcb.peklatour.peklatour.navigation.Screen
 import id.co.egifcb.peklatour.peklatour.ui.auth.login.LoginRoute
 import id.co.egifcb.peklatour.peklatour.ui.auth.register.RegisterRoute
 import id.co.egifcb.peklatour.peklatour.ui.home.HomeRoute
 import id.co.egifcb.peklatour.peklatour.ui.listtour.ListTourRoute
+import id.co.egifcb.peklatour.peklatour.ui.listtour.details.DetailsRoute
 import id.co.egifcb.peklatour.peklatour.ui.order.OrderRoute
 import id.co.egifcb.peklatour.peklatour.ui.profile.ProfileRoute
 import id.co.egifcb.peklatour.peklatour.ui.splashscreen.SplashRoute
@@ -219,9 +221,29 @@ fun PeklaTourApp(
 
                     ListTourRoute(
                         tourType = value,
-                        onItemClick = {
-                            // TODO Detail
+                        onItemClick = { tourList ->
+                            val json = Uri.encode(Gson().toJson(tourList))
+                            navHostController.navigate(
+                                "detailListTour/$json"
+                            )
                         }
+                    )
+                }
+
+                // Detail ListTour
+                composable(
+                    route = Screen.DetailsListTour.route,
+                    arguments = listOf(
+                        navArgument("data") {
+                            type = NavType.StringType
+                        }
+                    )
+                ) { backStack ->
+                    val value = backStack.arguments?.getString("data")
+                    val tourList = Gson().fromJson(value, TourList::class.java)
+
+                    DetailsRoute(
+                        tourList = tourList
                     )
                 }
             }
@@ -239,6 +261,7 @@ private fun titleTopAppBar(context: Context, route: String) = when (route) {
     Screen.Login.route -> context.getString(R.string.login_pekla_tour)
     Screen.DetailOrder.route -> context.getString(R.string.ticket_tour)
     Screen.ListTour.route -> context.getString(R.string.list_tour)
+    Screen.DetailsListTour.route -> context.getString(R.string.detail_tour)
     else -> "Belum Ada"
 }
 

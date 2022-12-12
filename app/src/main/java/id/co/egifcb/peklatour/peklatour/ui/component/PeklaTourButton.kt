@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -18,7 +19,8 @@ fun PeklaTourButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    loading: Boolean = false
+    loading: Boolean = false,
+    shape: Shape = MaterialTheme.shapes.small,
 ) {
     Button(
         onClick = onClick,
@@ -26,7 +28,8 @@ fun PeklaTourButton(
             backgroundColor = MaterialTheme.colors.primary
         ),
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        shape = shape
     ) {
         Box {
             if (loading) {

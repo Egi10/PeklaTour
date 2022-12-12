@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import id.co.egifcb.peklatour.peklatour.R
 import id.co.egifcb.peklatour.peklatour.data.repository.tour.model.Order
 import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourCard
-import id.co.egifcb.peklatour.peklatour.ui.component.PeklaTourLoading
 import id.co.egifcb.peklatour.peklatour.ui.theme.PeklaTourTheme
 import id.co.egifcb.peklatour.peklatour.until.formatRupiah
 

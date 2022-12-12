@@ -60,4 +60,10 @@
     <string name="retry">Ulangi</string>
     <string name="message_empty_list_tour">Maaf untuk saat ini belum ada Tour dengan tipe %s ini, Anda bisa coba yang lain</string>
     <string name="list_tour">Daftar Tour</string>
+    <string name="venue_infomation">Informasi Tempat</string>
+    <string name="book_tour">Pesan Tour</string>
+    <string name="guests">Banyak Tamu</string>
+    <string name="total_people">%1$s - %2$s Orang</string>
+    <string name="day">Hari</string>
+    <string name="detail_tour">Detail Tour</string>
 </resources>

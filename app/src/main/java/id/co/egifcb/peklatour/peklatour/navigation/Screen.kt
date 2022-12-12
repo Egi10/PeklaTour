@@ -11,4 +11,5 @@ sealed class Screen(val route: String) {
     object DetailOrder : Screen("detail/{order}")
 
     object ListTour: Screen("listTour/{type}")
+    object DetailsListTour: Screen("detailListTour/{data}")
 }
