@@ -66,4 +66,5 @@
     <string name="total_people">%1$s - %2$s Orang</string>
     <string name="day">Hari</string>
     <string name="detail_tour">Detail Tour</string>
+    <string name="developer_info">Developer Info</string>
 </resources>

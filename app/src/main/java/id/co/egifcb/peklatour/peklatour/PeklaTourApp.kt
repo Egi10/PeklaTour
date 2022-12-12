@@ -33,6 +33,7 @@ import id.co.egifcb.peklatour.peklatour.navigation.NavigationItem
 import id.co.egifcb.peklatour.peklatour.navigation.Screen
 import id.co.egifcb.peklatour.peklatour.ui.auth.login.LoginRoute
 import id.co.egifcb.peklatour.peklatour.ui.auth.register.RegisterRoute
+import id.co.egifcb.peklatour.peklatour.ui.developer.DeveloperRoute
 import id.co.egifcb.peklatour.peklatour.ui.home.HomeRoute
 import id.co.egifcb.peklatour.peklatour.ui.listtour.ListTourRoute
 import id.co.egifcb.peklatour.peklatour.ui.listtour.details.DetailsRoute
@@ -151,6 +152,11 @@ fun PeklaTourApp(
                                     inclusive = true
                                 }
                             }
+                        },
+                        developerInfoOnClick = {
+                            navHostController.navigate(
+                                Screen.DeveloperProfile.route
+                            )
                         }
                     )
                 }
@@ -246,6 +252,13 @@ fun PeklaTourApp(
                         tourList = tourList
                     )
                 }
+
+                // Developer
+                composable(
+                    route = Screen.DeveloperProfile.route,
+                ) {
+                    DeveloperRoute()
+                }
             }
         }
     )
@@ -262,6 +275,7 @@ private fun titleTopAppBar(context: Context, route: String) = when (route) {
     Screen.DetailOrder.route -> context.getString(R.string.ticket_tour)
     Screen.ListTour.route -> context.getString(R.string.list_tour)
     Screen.DetailsListTour.route -> context.getString(R.string.detail_tour)
+    Screen.DeveloperProfile.route -> "Developer Profile"
     else -> "Belum Ada"
 }
 

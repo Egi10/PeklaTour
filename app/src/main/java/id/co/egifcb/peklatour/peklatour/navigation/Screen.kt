@@ -12,4 +12,6 @@ sealed class Screen(val route: String) {
 
     object ListTour: Screen("listTour/{type}")
     object DetailsListTour: Screen("detailListTour/{data}")
+
+    object DeveloperProfile: Screen("developer")
 }
