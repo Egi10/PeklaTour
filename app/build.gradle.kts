@@ -11,8 +11,8 @@ android {
         applicationId = "id.co.egifcb.peklatour.peklatour"
         minSdk = 21
         targetSdk = 34
-        versionCode = 4
-        versionName = "2.0.1"
+        versionCode = 5
+        versionName = "2.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
