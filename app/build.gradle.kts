@@ -1,16 +1,17 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "id.co.egifcb.peklatour.peklatour"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "id.co.egifcb.peklatour.peklatour"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 5
         versionName = "2.0.2"
 
@@ -37,12 +38,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {

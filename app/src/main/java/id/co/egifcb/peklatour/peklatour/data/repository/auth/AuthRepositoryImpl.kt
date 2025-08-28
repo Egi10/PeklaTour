@@ -6,16 +6,21 @@ import id.co.egifcb.peklatour.peklatour.data.source.remote.auth.AuthRemoteDataSo
 import id.co.egifcb.peklatour.peklatour.until.PeklaTourResult
 import id.co.egifcb.peklatour.peklatour.until.fetchError
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onStart
 
 class AuthRepositoryImpl(
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val preferencesUser: PreferencesUser,
     private val dispatcher: CoroutineDispatcher
 ) : AuthRepository {
-    @OptIn(FlowPreview::class)
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     override fun login(email: String, password: String): Flow<PeklaTourResult<Login>> {
         return flow {
             emit(
@@ -57,7 +62,7 @@ class AuthRepositoryImpl(
         }.flowOn(dispatcher)
     }
 
-    @OptIn(FlowPreview::class)
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     override fun register(
         email: String,
         password: String,
